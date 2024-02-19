@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/btnClear"
-        android:onClick="deleteAll"
+        android:tag="@string/clearBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -83,7 +83,7 @@
 
     <Button
         android:id="@+id/btnBackspace"
-        android:onClick="deleteLast"
+        android:tag="@string/backspaceBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -98,7 +98,7 @@
 
     <Button
         android:id="@+id/btnOne"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -111,7 +111,7 @@
 
     <Button
         android:id="@+id/btnTwo"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -125,7 +125,7 @@
 
     <Button
         android:id="@+id/btnThree"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -139,7 +139,7 @@
 
     <Button
         android:id="@+id/btnDivide"
-        android:onClick="inputActions"
+        android:tag="@string/opBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -154,7 +154,7 @@
 
     <Button
         android:id="@+id/btnFour"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -167,7 +167,7 @@
 
     <Button
         android:id="@+id/btnFive"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -181,7 +181,7 @@
 
     <Button
         android:id="@+id/btnSix"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -195,7 +195,7 @@
 
     <Button
         android:id="@+id/btnMultiply"
-        android:onClick="inputActions"
+        android:tag="@string/opBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -210,7 +210,7 @@
 
     <Button
         android:id="@+id/btnSeven"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -223,7 +223,7 @@
 
     <Button
         android:id="@+id/btnEight"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -237,7 +237,7 @@
 
     <Button
         android:id="@+id/btnNine"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -251,7 +251,7 @@
 
     <Button
         android:id="@+id/btnSubtract"
-        android:onClick="inputActions"
+        android:tag="@string/opBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -265,8 +265,8 @@
 
 
     <Button
-        android:id="@+id/btnDecimal"
-        android:onClick="inputNumbers"
+        android:id="@+id/btnPoint"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -279,12 +279,12 @@
 
     <Button
         android:id="@+id/btnZero"
-        android:onClick="inputNumbers"
+        android:tag="@string/digitBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnEight"
-        android:layout_toEndOf="@+id/btnDecimal"
+        android:layout_toEndOf="@+id/btnPoint"
         android:text="0"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -293,7 +293,7 @@
 
     <Button
         android:id="@+id/btnAdd"
-        android:onClick="inputActions"
+        android:tag="@string/opBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -307,7 +307,7 @@
 
     <Button
         android:id="@+id/btnEquals"
-        android:onClick="getResult"
+        android:tag="@string/equalBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"

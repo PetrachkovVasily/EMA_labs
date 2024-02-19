@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string name="digitBtnTag">digitBtn</string>
+    <string name="opBtnTag">opBtn</string>
+    <string name="equalBtnTag">equalBtn</string>
+    <string name="backspaceBtnTag">backspaceBtn</string>
+    <string name="clearBtnTag">clearBtn</string>
 </resources>

@@ -3,64 +3,151 @@ package com.example.myapplication
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener{
 
-    lateinit var inputOperations : TextView
-    lateinit var inputSolution : TextView
+    private lateinit var calculationView : TextView
+    private lateinit var resultView : TextView
 
-    var actionPossibility = true
-    var decimalPossibility = true
+
+
+    private var currNumIndex : Int = 0
+    private var currOpIndex : Int = -1
+    private var isNumber : Boolean = true
+
+    private var numbers : MutableList<StringBuilder> = mutableListOf( StringBuilder())
+    private var operations : MutableList<String> = mutableListOf()
+
+
+
+
+    private var actionPossibility = true
+    private var decimalPossibility = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        inputOperations = findViewById<TextView>(R.id.inputOperations)
-        inputSolution = findViewById<TextView>(R.id.inputSolution)
+
+        setEventListeners()
+
+        calculationView = findViewById<TextView>(R.id.inputOperations)
+        resultView = findViewById<TextView>(R.id.inputSolution)
     }
 
+    private fun setEventListeners()
+    {
+        val layout = findViewById<RelativeLayout>(R.id.layoutMain)
+        for( btn in layout.children.filter { c -> c is Button })
+        {
+            btn.setOnClickListener(this)
+        }
+    }
 
-    fun inputNumbers(view: View) {
-        if(view is Button) {
-            if(view.text == ".") {
-                if(decimalPossibility) {
-                    inputOperations.append(view.text)
-                }
-                decimalPossibility = false
-            } else {
-                inputOperations.append(view.text)
+    override fun onClick(v: View?)
+    {
+
+        when (v?.tag){
+            getString(R.string.digitBtnTag) -> inputDigit(v as Button)
+            getString(R.string.opBtnTag) -> inputActions(v as Button)
+            getString(R.string.equalBtnTag) -> getResult(v as Button)
+            getString(R.string.clearBtnTag) -> deleteAll(v as Button)
+            getString(R.string.backspaceBtnTag) -> deleteLast(v as Button)
+        }
+
+    }
+
+    private fun inputDigit(digitButton: Button)
+    {
+        if(!isNumber)
+        {
+            currNumIndex++
+            numbers.add( StringBuilder() )
+            isNumber = true
+        }
+
+        val digit = digitButton.text
+        if(digit == "." && !isPointPermitted()) return
+
+        numbers[currNumIndex].append(digit)
+        calculationView.append(digit)
+    }
+
+    private fun inputActions(opButton: Button)
+    {
+        if( isNumber && !canWriteOperation() ) return
+
+        if( isNumber )
+        {
+            currOpIndex++
+            operations.add( String() )
+            isNumber = false
+        }
+
+        val operation = opButton.text.toString()
+
+        if(operations[currOpIndex].isNotBlank())
+        {
+            val currViewText = calculationView.text
+            calculationView.text = currViewText.substring(0, currViewText.length - 1)
+        }
+
+        calculationView.append(operation)
+        operations[currOpIndex] = operation
+    }
+
+    private fun canWriteOperation() : Boolean
+    {
+        return numbers.isNotEmpty() && numbers[currNumIndex].isNotBlank()
+    }
+
+    private fun isPointPermitted() : Boolean
+    {
+        return !(numbers[currNumIndex].isNullOrBlank() || numbers[currNumIndex].contains('.'))
+    }
+
+    private fun deleteLast(view: Button)
+    {
+        if(calculationView.text.isNullOrBlank()) return
+
+        if(isNumber)
+        {
+            numbers[currNumIndex].deleteAt(numbers[currNumIndex].length - 1)
+            if(numbers[currNumIndex].isNullOrBlank() && operations.isNotEmpty())
+            {
+                isNumber = false
+                numbers.removeAt(currNumIndex--)
             }
-            actionPossibility = true
         }
-    }
-
-    fun inputActions(view: View) {
-        if(view is Button && actionPossibility) {
-            inputOperations.append(view.text)
-            actionPossibility = false
-            decimalPossibility = true
+        else
+        {
+            operations.removeAt(currOpIndex--)
+            isNumber = true
         }
+
+        calculationView.text = calculationView.text.substring(0, calculationView.text.length - 1)
     }
 
-    fun deleteAll(view: View) {
-        inputOperations.text = ""
-        inputSolution.text = ""
+
+    private fun deleteAll(view: Button) {
+        calculationView.text = ""
+        operations.clear()
+        numbers = mutableListOf( StringBuilder() )
+        resultView.text = ""
     }
 
-    fun deleteLast(view: View) {
-        inputOperations.text = inputOperations.text.substring(0, inputOperations.text.length - 1)
-    }
 
-    fun getResult(view: View) {
+    private fun getResult(view: Button) {
         var digitalList = digitReading(view)
         var operationList = operationReading(view)
         //var newResult = calculateFirst(digitalList, operationList)
-        inputSolution.text = calculateFirst(digitalList, operationList).joinToString("")
+        resultView.text = calculateFirst(digitalList, operationList).joinToString("")
     }
 
-    fun calculateFirst(digitalList: MutableList<String>, operationList: MutableList<String>): MutableList<String> {
+    private fun calculateFirst(digitalList: MutableList<String>, operationList: MutableList<String>): MutableList<String> {
         var newList: MutableList<String>
         var restart = 0
         while(operationList.contains("*") || operationList.contains("/")) {
@@ -114,16 +201,17 @@ class MainActivity : AppCompatActivity() {
         return digitalList
     }
 
-    fun digitReading(view: View): MutableList<String> {
-        var digitalList: MutableList<String> = inputOperations.text.split("+", "-", "*", "/").toMutableList()
+    private fun digitReading(view: View): MutableList<String> {
+        var digitalList: MutableList<String> = this.calculationView.text.split("+", "-", "*", "/").toMutableList()
 
         return digitalList
     }
 
-    fun operationReading(view: View): MutableList<String> {
-        var operationList: MutableList<String> = inputOperations.text.split("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".").toMutableList()
+    private fun operationReading(view: View): MutableList<String> {
+        var operationList: MutableList<String> = this.calculationView.text.split("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".").toMutableList()
         operationList.removeAt(0)
         operationList.removeAt(operationList.size-1)
         return operationList
     }
+
 }
