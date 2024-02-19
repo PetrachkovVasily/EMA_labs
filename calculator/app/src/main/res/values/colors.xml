@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bg_clr">#b91111</color>
+    <color name="btn_clr">#151515</color>
+    <color name="big_btn_clr">#e31212</color>
+    <color name="op_btn_clr">#ff1313</color>
+    <color name="zone_clr">#ed1313</color>
+</resources>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutMain"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/bg_clr"
+    android:gravity="center"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/inputOperations"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:paddingRight="10sp"
+        android:paddingTop="5sp"
+
+        android:text=""
+        android:gravity="right"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:textColor="@color/btn_clr"
+        android:background="@color/big_btn_clr" />
+
+    <TextView
+        android:id="@+id/inputSolution"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputOperations"
+        android:paddingTop="5sp"
+        android:paddingRight="10sp"
+
+        android:text=""
+        android:gravity="right"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:textColor="@color/btn_clr"
+        android:background="@color/zone_clr"/>
+
+    <Button
+        android:id="@+id/btnClear"
+        android:onClick="deleteAll"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/inputSolution"
+
+        android:text="C"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/big_btn_clr"/>
+
+    <Button
+        android:id="@+id/btnBr"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/inputSolution"
+        android:layout_toEndOf="@+id/btnClear"
+
+        android:text="()"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/big_btn_clr"/>
+
+    <Button
+        android:id="@+id/btnPerc"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/inputSolution"
+        android:layout_toEndOf="@+id/btnBr"
+
+        android:text="%"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/big_btn_clr"/>
+
+    <Button
+        android:id="@+id/btnBackspace"
+        android:onClick="deleteLast"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/inputSolution"
+        android:layout_toEndOf="@+id/btnPerc"
+
+        android:text="&lt;--"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/big_btn_clr"/>
+
+    <Button
+        android:id="@+id/btnOne"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnClear"
+        android:text="1"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnTwo"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnClear"
+        android:layout_toEndOf="@+id/btnOne"
+        android:text="2"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnThree"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnClear"
+        android:layout_toEndOf="@+id/btnTwo"
+        android:text="3"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnDivide"
+        android:onClick="inputActions"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnClear"
+        android:layout_toEndOf="@+id/btnThree"
+        android:text="/"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/btn_clr"
+        android:backgroundTint="@color/op_btn_clr"/>
+
+
+    <Button
+        android:id="@+id/btnFour"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnOne"
+        android:text="4"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnFive"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnTwo"
+        android:layout_toEndOf="@+id/btnFour"
+        android:text="5"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnSix"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnThree"
+        android:layout_toEndOf="@+id/btnFive"
+        android:text="6"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnMultiply"
+        android:onClick="inputActions"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnDivide"
+        android:layout_toEndOf="@+id/btnSix"
+        android:text="*"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/btn_clr"
+        android:backgroundTint="@color/op_btn_clr"/>
+
+
+    <Button
+        android:id="@+id/btnSeven"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnFour"
+        android:text="7"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnEight"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnFive"
+        android:layout_toEndOf="@+id/btnSeven"
+        android:text="8"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnNine"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnSix"
+        android:layout_toEndOf="@+id/btnEight"
+        android:text="9"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnSubtract"
+        android:onClick="inputActions"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnMultiply"
+        android:layout_toEndOf="@+id/btnNine"
+        android:text="-"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/btn_clr"
+        android:backgroundTint="@color/op_btn_clr"/>
+
+
+    <Button
+        android:id="@+id/btnDecimal"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnSeven"
+        android:text="."
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnZero"
+        android:onClick="inputNumbers"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnEight"
+        android:layout_toEndOf="@+id/btnDecimal"
+        android:text="0"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/op_btn_clr"
+        android:backgroundTint="@color/btn_clr"/>
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:onClick="inputActions"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnNine"
+        android:layout_toEndOf="@+id/btnZero"
+        android:text="+"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/btn_clr"
+        android:backgroundTint="@color/op_btn_clr"/>
+
+    <Button
+        android:id="@+id/btnEquals"
+        android:onClick="getResult"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/btnSubtract"
+        android:layout_toEndOf="@+id/btnAdd"
+        android:text="="
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#151515"
+        android:backgroundTint="@color/op_btn_clr"/>
+
+</RelativeLayout>
