@@ -3,7 +3,15 @@
 
     <string name="digitBtnTag">digitBtn</string>
     <string name="opBtnTag">opBtn</string>
+    <string name="bracketsBtnTag">bracketsBtn</string>
     <string name="equalBtnTag">equalBtn</string>
     <string name="backspaceBtnTag">backspaceBtn</string>
     <string name="clearBtnTag">clearBtn</string>
+
+    <string-array name="operations">
+        <item>+</item>
+        <item>-</item>
+        <item>/</item>
+        <item>*</item>
+    </string-array>
 </resources>

@@ -41,20 +41,22 @@
 
     <Button
         android:id="@+id/btnClear"
-        android:tag="@string/clearBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_below="@+id/inputSolution"
+        android:layout_marginTop="-1dp"
+        android:backgroundTint="@color/big_btn_clr"
 
+        android:gravity="center"
+        android:tag="@string/clearBtnTag"
         android:text="C"
-        android:textSize="40sp"
-        android:textStyle="bold"
         android:textColor="@color/white"
-        android:backgroundTint="@color/big_btn_clr"/>
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnBr"
+        android:tag="@string/bracketsBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -68,14 +70,15 @@
         android:backgroundTint="@color/big_btn_clr"/>
 
     <Button
-        android:id="@+id/btnPerc"
+        android:id="@+id/btnPow"
+        android:tag="@string/opBtnTag"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/inputSolution"
         android:layout_toEndOf="@+id/btnBr"
 
-        android:text="%"
+        android:text="^"
         android:textSize="40sp"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -88,9 +91,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/inputSolution"
-        android:layout_toEndOf="@+id/btnPerc"
+        android:layout_toEndOf="@+id/btnPow"
 
-        android:text="&lt;--"
+        android:text="⌫"
         android:textSize="40sp"
         android:textStyle="bold"
         android:textColor="@color/white"

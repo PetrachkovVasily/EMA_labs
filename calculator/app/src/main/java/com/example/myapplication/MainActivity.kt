@@ -5,28 +5,46 @@ import android.view.View
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import kotlin.math.pow
 
-class MainActivity : AppCompatActivity(), View.OnClickListener{
+class MainActivity : AppCompatActivity(), View.OnClickListener
+{
 
     private lateinit var calculationView : TextView
     private lateinit var resultView : TextView
 
 
+    private var tokens : MutableList<Token> = mutableListOf()
+    private var bracketsCountDiff: Int = 0
 
-    private var currNumIndex : Int = 0
-    private var currOpIndex : Int = -1
-    private var isNumber : Boolean = true
+    private var calculationException : Exception? = null
 
-    private var numbers : MutableList<StringBuilder> = mutableListOf( StringBuilder())
-    private var operations : MutableList<String> = mutableListOf()
+    private class Token(var type : TokenType, var value : String)
 
+    private enum class TokenType
+    {
+        NUMBER, OPERATION, OPENBRACKET, CLOSEBRACKET
+    }
 
+    private val operationPriority : Map<String, Int> = mapOf(
+        "(" to 1,
+        "+" to 2,
+        "-" to 2,
+        "*" to 3,
+        "/" to 3,
+        "^" to 4,
+    )
 
-
-    private var actionPossibility = true
-    private var decimalPossibility = true
+    private val operations : Map<String, (first : String, second : String) -> String> = mapOf(
+        "+" to ::calculatePlus,
+        "-" to ::calculateMinus,
+        "*" to ::calculateMultiplication,
+        "/" to ::calculateDivision,
+        "^" to ::calculateDegree,
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +52,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         setEventListeners()
 
-        calculationView = findViewById<TextView>(R.id.inputOperations)
-        resultView = findViewById<TextView>(R.id.inputSolution)
+        calculationView = findViewById(R.id.inputOperations)
+        resultView = findViewById(R.id.inputSolution)
     }
 
     private fun setEventListeners()
@@ -52,166 +70,246 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         when (v?.tag){
             getString(R.string.digitBtnTag) -> inputDigit(v as Button)
-            getString(R.string.opBtnTag) -> inputActions(v as Button)
-            getString(R.string.equalBtnTag) -> getResult(v as Button)
-            getString(R.string.clearBtnTag) -> deleteAll(v as Button)
-            getString(R.string.backspaceBtnTag) -> deleteLast(v as Button)
+            getString(R.string.opBtnTag) -> inputAction(v as Button)
+            getString(R.string.equalBtnTag) -> execute()
+            getString(R.string.bracketsBtnTag) -> inputBrackets()
+            getString(R.string.clearBtnTag) -> deleteAll()
+            getString(R.string.backspaceBtnTag) -> deleteLast()
         }
 
     }
 
     private fun inputDigit(digitButton: Button)
     {
-        if(!isNumber)
-        {
-            currNumIndex++
-            numbers.add( StringBuilder() )
-            isNumber = true
-        }
-
         val digit = digitButton.text
         if(digit == "." && !isPointPermitted()) return
 
-        numbers[currNumIndex].append(digit)
+        if(tokens.isEmpty() || tokens.last().type != TokenType.NUMBER)
+        {
+            tokens.add( Token(TokenType.NUMBER, ""))
+        }
+
+        tokens.last().value += digit
         calculationView.append(digit)
+
+        resultView.text = calculate()
     }
 
-    private fun inputActions(opButton: Button)
+    private fun inputAction(opButton: Button)
     {
-        if( isNumber && !canWriteOperation() ) return
+        if( tokens.isEmpty() || tokens.last().type == TokenType.OPENBRACKET) return
 
-        if( isNumber )
+        if( tokens.last().type != TokenType.OPERATION )
         {
-            currOpIndex++
-            operations.add( String() )
-            isNumber = false
+            tokens.add( Token(TokenType.OPERATION, ""))
         }
 
         val operation = opButton.text.toString()
 
-        if(operations[currOpIndex].isNotBlank())
+        if(tokens.last().value.isNotBlank())
         {
             val currViewText = calculationView.text
             calculationView.text = currViewText.substring(0, currViewText.length - 1)
         }
 
         calculationView.append(operation)
-        operations[currOpIndex] = operation
-    }
-
-    private fun canWriteOperation() : Boolean
-    {
-        return numbers.isNotEmpty() && numbers[currNumIndex].isNotBlank()
+        tokens.last().value = operation
     }
 
     private fun isPointPermitted() : Boolean
     {
-        return !(numbers[currNumIndex].isNullOrBlank() || numbers[currNumIndex].contains('.'))
+        return tokens.isNotEmpty() &&
+                tokens.last().type == TokenType.NUMBER &&
+                !tokens.last().value.contains('.')
     }
 
-    private fun deleteLast(view: Button)
+    private fun deleteLast()
     {
-        if(calculationView.text.isNullOrBlank()) return
+        if (calculationView.text.isNullOrBlank()) return
 
-        if(isNumber)
+        val currToken: String = tokens.last().value
+
+        if(tokens.last().type == TokenType.OPENBRACKET) bracketsCountDiff--
+        else if(tokens.last().type == TokenType.CLOSEBRACKET) bracketsCountDiff++
+
+        tokens.last().value = currToken.substring(0, currToken.lastIndex)
+
+        if (tokens.last().value.isBlank())
         {
-            numbers[currNumIndex].deleteAt(numbers[currNumIndex].length - 1)
-            if(numbers[currNumIndex].isNullOrBlank() && operations.isNotEmpty())
-            {
-                isNumber = false
-                numbers.removeAt(currNumIndex--)
-            }
-        }
-        else
-        {
-            operations.removeAt(currOpIndex--)
-            isNumber = true
+            tokens.removeLast()
         }
 
-        calculationView.text = calculationView.text.substring(0, calculationView.text.length - 1)
+        calculationView.text = calculationView.text.substring(0, calculationView.text.lastIndex)
+        resultView.text = calculate()
     }
 
-
-    private fun deleteAll(view: Button) {
+    private fun deleteAll()
+    {
         calculationView.text = ""
-        operations.clear()
-        numbers = mutableListOf( StringBuilder() )
         resultView.text = ""
+        bracketsCountDiff = 0
+        tokens.clear()
+    }
+
+    private fun calculate() : String
+    {
+        if(tokens.isEmpty()) return ""
+
+        val rpn : MutableList<Token> = buildRPN()
+
+        var ind = 0
+        while (rpn.count() > 1)
+        {
+            if(rpn[ind].type != TokenType.OPERATION)
+            {
+                ind++
+                continue
+            }
+
+            val firstOperand : String = rpn[ind - 2].value
+            val secondOperand : String = rpn[ind - 1].value
+            val operation = operations[rpn[ind].value]!!
+
+            try
+            {
+                rpn[ind] = Token(TokenType.NUMBER, operation.invoke(firstOperand, secondOperand))
+            }
+            catch (ex: Exception)
+            {
+                calculationException = ex
+                return ""
+            }
+
+            rpn.removeAt(ind - 1)
+            rpn.removeAt(ind - 2)
+
+            ind--
+        }
+
+        calculationException = null
+        return rpn.last().value
     }
 
 
-    private fun getResult(view: Button) {
-        var digitalList = digitReading(view)
-        var operationList = operationReading(view)
-        //var newResult = calculateFirst(digitalList, operationList)
-        resultView.text = calculateFirst(digitalList, operationList).joinToString("")
-    }
+    private fun buildRPN() : MutableList<Token>
+    {
+        val rpn: MutableList<Token> = mutableListOf()
 
-    private fun calculateFirst(digitalList: MutableList<String>, operationList: MutableList<String>): MutableList<String> {
-        var newList: MutableList<String>
-        var restart = 0
-        while(operationList.contains("*") || operationList.contains("/")) {
-            var index = 0
-            for(operation in operationList) {
-                var newNumber: Float
-                var currentNumber = digitalList[index].toFloat()
-                var nextNumber = digitalList[index+1].toFloat()
-                when(operation) {
-                    "*" -> {
-                        newNumber = currentNumber*nextNumber
-                        digitalList[index]=newNumber.toString()
-                        digitalList.removeAt(index+1)
-                        operationList.removeAt(index)
-                        break
+        val opStack: ArrayDeque<Token> = ArrayDeque()
+
+        for (token: Token in getValidExpression())
+        {
+            when (token.type)
+            {
+                TokenType.OPENBRACKET -> opStack.addLast(token)
+                TokenType.CLOSEBRACKET -> {
+                    while (opStack.last().type != TokenType.OPENBRACKET) {
+                        rpn.add(opStack.removeLast())
                     }
-                    "/" -> {
-                        newNumber = currentNumber/nextNumber
-                        digitalList[index]=newNumber.toString()
-                        digitalList.removeAt(index+1)
-                        operationList.removeAt(index)
-                        break
-                    }
+                    opStack.removeLast()
                 }
-                index += 1
+
+                TokenType.NUMBER -> rpn.add(token)
+                TokenType.OPERATION -> {
+                    while (opStack.isNotEmpty() &&
+                        operationPriority[opStack.last().value]!! > operationPriority[token.value]!!
+                    ) {
+                        rpn.add(opStack.removeLast())
+                    }
+                    opStack.addLast(token)
+                }
             }
         }
-        var index = 0
-        for(operation in operationList) {
-            var newNumber: Float
-            var currentNumber = digitalList[index].toFloat()
-            var nextNumber = digitalList[index+1].toFloat()
-            when(operation) {
-                "+" -> {
-                    newNumber = currentNumber+nextNumber
-                    digitalList[index]=newNumber.toString()
-                    digitalList.removeAt(index+1)
-                    operationList.removeAt(index)
-                    break
-                }
-                "-" -> {
-                    newNumber = currentNumber-nextNumber
-                    digitalList[index]=newNumber.toString()
-                    digitalList.removeAt(index+1)
-                    operationList.removeAt(index)
-                    break
-                }
-            }
-            index += 1
+
+        while (opStack.isNotEmpty())
+        {
+            rpn.add(opStack.removeLast())
         }
-        return digitalList
+
+        return rpn
     }
 
-    private fun digitReading(view: View): MutableList<String> {
-        var digitalList: MutableList<String> = this.calculationView.text.split("+", "-", "*", "/").toMutableList()
+    private fun getValidExpression(): MutableList<Token>
+    {
+        val validExpression = tokens.toMutableList()
 
-        return digitalList
+        var bracketDiff = bracketsCountDiff
+
+        while (validExpression.last().type == TokenType.OPERATION ||
+            validExpression.last().type == TokenType.OPENBRACKET)
+        {
+            if(validExpression.last().type == TokenType.OPENBRACKET) bracketDiff--
+            validExpression.removeLast()
+        }
+        for (i in 1..bracketDiff)
+        {
+            validExpression.add(Token(TokenType.CLOSEBRACKET, ")"))
+        }
+
+        return validExpression
     }
 
-    private fun operationReading(view: View): MutableList<String> {
-        var operationList: MutableList<String> = this.calculationView.text.split("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".").toMutableList()
-        operationList.removeAt(0)
-        operationList.removeAt(operationList.size-1)
-        return operationList
+    private fun inputBrackets()
+    {
+        if (tokens.isEmpty() ||
+            (tokens.last().type != TokenType.CLOSEBRACKET && tokens.last().type != TokenType.NUMBER))
+        {
+            tokens.add(Token(TokenType.OPENBRACKET, "("))
+            calculationView.append("(")
+            bracketsCountDiff++
+        }
+        else if(bracketsCountDiff > 0)
+        {
+            tokens.add(Token(TokenType.CLOSEBRACKET, ")"))
+            calculationView.append(")")
+            bracketsCountDiff--
+        }
+    }
+
+    private fun calculatePlus(first: String, second: String): String
+    {
+        return (first.toDouble() + second.toDouble()).toString()
+    }
+
+    private fun calculateMinus(first: String, second: String): String
+    {
+        return (first.toDouble() - second.toDouble()).toString()
+    }
+
+    private fun calculateMultiplication(first: String, second: String): String
+    {
+        return (first.toDouble() * second.toDouble()).toString()
+    }
+
+    private fun calculateDivision(first: String, second: String): String
+    {
+        if (second.toDouble() == 0.0) {
+            throw Exception("Can not divide by zero")
+        }
+        return (first.toDouble() / second.toDouble()).toString()
+    }
+
+    private fun calculateDegree(first: String, second: String): String
+    {
+        return ( first.toDouble().pow(second.toDouble()) ).toString()
+    }
+
+    private fun execute()
+    {
+        val res : String = calculate()
+
+        if(calculationException != null)
+        {
+            val toast = Toast.makeText(applicationContext, calculationException?.message,
+                Toast.LENGTH_SHORT)
+            toast.show()
+            return
+        }
+
+        deleteAll()
+        calculationView.text = res
+        tokens.add(Token(TokenType.NUMBER, res))
+
     }
 
 }
