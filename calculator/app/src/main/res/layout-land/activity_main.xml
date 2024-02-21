@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutMain"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,11 +39,11 @@
 
     <Button
         android:id="@+id/btnClear"
+        android:tag="@string/clearBtnTag"
         android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/inputSolution"
         android:gravity="center"
-        android:onClick="deleteAll"
 
         android:text="C"
         android:textSize="30sp"
@@ -53,6 +54,7 @@
 
     <Button
         android:id="@+id/btnBr"
+        android:tag="@string/bracketsBtnTag"
         android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/inputSolution"
@@ -66,14 +68,15 @@
         android:backgroundTint="@color/big_btn_clr"/>
 
     <Button
-        android:id="@+id/btnPerc"
+        android:id="@+id/btnPow"
+        android:tag="@string/opBtnTag"
         android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/inputSolution"
         android:layout_toEndOf="@+id/btnBr"
         android:gravity="center"
 
-        android:text="%"
+        android:text="^"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -81,91 +84,38 @@
 
     <Button
         android:id="@+id/btnBackspace"
+        android:tag="@string/backspaceBtnTag"
         android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/inputSolution"
-        android:layout_toEndOf="@+id/btnPerc"
+        android:layout_toEndOf="@+id/btnPow"
         android:gravity="center"
-        android:onClick="deleteLast"
 
-        android:text="&lt;--"
+        android:text="⌫"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:backgroundTint="@color/big_btn_clr"/>
 
 
-
-    <Button
-        android:id="@+id/btnSqrt"
-        android:layout_width="138dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/btnClear"
-        android:text="√"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/btn_clr"
-        android:backgroundTint="@color/op_btn_clr"/>
-
-
-
-
-    <Button
-        android:id="@+id/btnDen"
-        android:layout_width="138dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/btnSqrt"
-        android:text="1/x"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/btn_clr"
-        android:backgroundTint="@color/op_btn_clr"/>
-
-    <Button
-        android:id="@+id/btnSq"
-        android:layout_width="138dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/btnDen"
-        android:text="x²"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/btn_clr"
-        android:backgroundTint="@color/op_btn_clr"/>
-
-    <Button
-        android:id="@+id/btnPow"
-        android:layout_width="138dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/btnSq"
-        android:text="x^n"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/btn_clr"
-        android:backgroundTint="@color/op_btn_clr"/>
-
-
     <Button
         android:id="@+id/btnOne"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnClear"
-        android:layout_toEndOf="@+id/btnSqrt"
+        android:layout_marginTop="-2dp"
         android:backgroundTint="@color/btn_clr"
         android:gravity="center"
         android:text="1"
         android:textColor="@color/op_btn_clr"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:onClick="inputNumbers" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnTwo"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnClear"
@@ -178,8 +128,8 @@
 
     <Button
         android:id="@+id/btnThree"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnClear"
@@ -192,8 +142,8 @@
 
     <Button
         android:id="@+id/btnDivide"
-        android:onClick="inputActions"
-        android:layout_width="138dp"
+        android:tag="@string/opBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnClear"
@@ -207,11 +157,10 @@
 
     <Button
         android:id="@+id/btnFour"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnOne"
-        android:layout_toEndOf="@+id/btnDen"
         android:backgroundTint="@color/btn_clr"
         android:gravity="center"
         android:text="4"
@@ -221,8 +170,8 @@
 
     <Button
         android:id="@+id/btnFive"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnTwo"
@@ -235,8 +184,8 @@
 
     <Button
         android:id="@+id/btnSix"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnThree"
@@ -249,8 +198,8 @@
 
     <Button
         android:id="@+id/btnMultiply"
-        android:onClick="inputActions"
-        android:layout_width="138dp"
+        android:tag="@string/opBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnDivide"
@@ -264,11 +213,10 @@
 
     <Button
         android:id="@+id/btnSeven"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnFour"
-        android:layout_toEndOf="@+id/btnSqrt"
         android:backgroundTint="@color/btn_clr"
         android:gravity="center"
         android:text="7"
@@ -278,8 +226,8 @@
 
     <Button
         android:id="@+id/btnEight"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnFive"
@@ -292,8 +240,8 @@
 
     <Button
         android:id="@+id/btnNine"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnSix"
@@ -306,8 +254,8 @@
 
     <Button
         android:id="@+id/btnSubtract"
-        android:onClick="inputActions"
-        android:layout_width="138dp"
+        android:tag="@string/opBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnMultiply"
@@ -321,11 +269,10 @@
 
     <Button
         android:id="@+id/btnDecimal"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnSeven"
-        android:layout_toEndOf="@+id/btnSqrt"
         android:backgroundTint="@color/btn_clr"
         android:gravity="center"
         android:text="."
@@ -335,8 +282,8 @@
 
     <Button
         android:id="@+id/btnZero"
-        android:onClick="inputNumbers"
-        android:layout_width="138dp"
+        android:tag="@string/digitBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnEight"
@@ -349,8 +296,8 @@
 
     <Button
         android:id="@+id/btnAdd"
-        android:onClick="inputActions"
-        android:layout_width="138dp"
+        android:tag="@string/opBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnNine"
@@ -363,8 +310,8 @@
 
     <Button
         android:id="@+id/btnEquals"
-        android:onClick="getResult"
-        android:layout_width="138dp"
+        android:tag="@string/equalBtnTag"
+        android:layout_width="172.5dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/btnSubtract"
