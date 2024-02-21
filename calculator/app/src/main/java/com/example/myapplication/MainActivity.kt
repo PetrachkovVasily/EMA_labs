@@ -1,6 +1,8 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.View
 import android.widget.Button
 import android.widget.RelativeLayout
@@ -19,42 +21,126 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
 
     private var tokens : MutableList<Token> = mutableListOf()
     private var bracketsCountDiff: Int = 0
-
     private var calculationException : Exception? = null
 
-    private class Token(var type : TokenType, var value : String)
+    private class Token : Parcelable
+    {
+        var type : TokenType
+        var value : String
+        constructor(type : TokenType, value : String)
+        {
+            this.type = type
+            this.value = value
+        }
+
+        constructor(parcel : Parcel)
+        {
+            val data : Array<String?> = arrayOfNulls(2)
+            parcel.readStringArray(data)
+            this.type = TokenType.valueOf(data[0]!!)
+            this.value = data[1]!!
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int)
+        {
+            parcel.writeStringArray(arrayOf(type.toString(), value))
+        }
+
+        override fun describeContents(): Int
+        {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<Token>
+        {
+            override fun createFromParcel(parcel: Parcel): Token
+            {
+                return Token(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Token?> {
+                return arrayOfNulls(size)
+            }
+        }
+
+    }
 
     private enum class TokenType
     {
         NUMBER, OPERATION, OPENBRACKET, CLOSEBRACKET
     }
 
-    private val operationPriority : Map<String, Int> = mapOf(
-        "(" to 1,
-        "+" to 2,
-        "-" to 2,
-        "*" to 3,
-        "/" to 3,
-        "^" to 4,
-    )
+    private lateinit var operationPriority : Map<String, Int>
 
-    private val operations : Map<String, (first : String, second : String) -> String> = mapOf(
-        "+" to ::calculatePlus,
-        "-" to ::calculateMinus,
-        "*" to ::calculateMultiplication,
-        "/" to ::calculateDivision,
-        "^" to ::calculateDegree,
-    )
+    private lateinit var operations : Map<String, (first : String, second : String) -> String>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         setEventListeners()
 
         calculationView = findViewById(R.id.inputOperations)
         resultView = findViewById(R.id.inputSolution)
+
+        initializeMaps()
+
+        if(savedInstanceState?.isEmpty == false)
+        {
+            restoreData(savedInstanceState)
+        }
     }
+
+    private fun initializeMaps()
+    {
+        operationPriority = mapOf(
+            getString(R.string.openBracket) to 1,
+            getString(R.string.plus) to 2,
+            getString(R.string.minus) to 2,
+            getString(R.string.multiplication) to 3,
+            getString(R.string.division) to 3,
+            getString(R.string.pow) to 4,
+        )
+
+        operations = mapOf(
+            getString(R.string.plus) to ::calculatePlus,
+            getString(R.string.minus) to ::calculateMinus,
+            getString(R.string.multiplication) to ::calculateMultiplication,
+            getString(R.string.division) to ::calculateDivision,
+            getString(R.string.pow) to ::calculateDegree,
+        )
+    }
+
+    private fun restoreData(bundle: Bundle)
+    {
+        calculationView.text = bundle.getString("calculationText")
+        resultView.text = bundle.getString("resultText")
+        val exMessage = bundle.getString("calculationExceptionMessage")
+        if(exMessage != null)
+        {
+            calculationException = Exception(exMessage)
+        }
+
+        bracketsCountDiff = bundle.getInt("bracketsCountDiff")
+
+        @Suppress("DEPRECATION")
+        tokens = bundle.getParcelableArrayList("tokens")!!
+    }
+
+    override fun onSaveInstanceState(outState: Bundle)
+    {
+
+        outState.putParcelableArrayList("tokens", ArrayList(tokens))
+        outState.putInt("bracketsCountDiff", bracketsCountDiff)
+        outState.putString("calculationExceptionMessage", calculationException?.message)
+        outState.putString("calculationText", calculationView.text.toString())
+        outState.putString("resultText", resultView.text.toString())
+
+        super.onSaveInstanceState(outState)
+    }
+
 
     private fun setEventListeners()
     {
@@ -82,7 +168,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
     private fun inputDigit(digitButton: Button)
     {
         val digit = digitButton.text
-        if(digit == "." && !isPointPermitted()) return
+        if(digit == getString(R.string.point) && !isPointPermitted()) return
 
         if(tokens.isEmpty() || tokens.last().type != TokenType.NUMBER)
         {
@@ -120,7 +206,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
     {
         return tokens.isNotEmpty() &&
                 tokens.last().type == TokenType.NUMBER &&
-                !tokens.last().value.contains('.')
+                !tokens.last().value.contains(getString(R.string.point))
     }
 
     private fun deleteLast()
@@ -243,7 +329,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         }
         for (i in 1..bracketDiff)
         {
-            validExpression.add(Token(TokenType.CLOSEBRACKET, ")"))
+            validExpression.add(Token(TokenType.CLOSEBRACKET, getString(R.string.closeBracket)))
         }
 
         return validExpression
@@ -254,14 +340,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         if (tokens.isEmpty() ||
             (tokens.last().type != TokenType.CLOSEBRACKET && tokens.last().type != TokenType.NUMBER))
         {
-            tokens.add(Token(TokenType.OPENBRACKET, "("))
-            calculationView.append("(")
+            tokens.add(Token(TokenType.OPENBRACKET, getString(R.string.openBracket)))
+            calculationView.append(getString(R.string.openBracket))
             bracketsCountDiff++
         }
         else if(bracketsCountDiff > 0)
         {
-            tokens.add(Token(TokenType.CLOSEBRACKET, ")"))
-            calculationView.append(")")
+            tokens.add(Token(TokenType.CLOSEBRACKET, getString(R.string.closeBracket)))
+            calculationView.append(getString(R.string.closeBracket))
             bracketsCountDiff--
         }
     }
@@ -284,7 +370,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
     private fun calculateDivision(first: String, second: String): String
     {
         if (second.toDouble() == 0.0) {
-            throw Exception("Can not divide by zero")
+            throw Exception(getString(R.string.divideByZeroMessage))
         }
         return (first.toDouble() / second.toDouble()).toString()
     }
