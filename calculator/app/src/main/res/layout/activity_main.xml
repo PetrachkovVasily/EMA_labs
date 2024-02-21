@@ -94,7 +94,6 @@
         android:gravity="center"
         android:layout_below="@+id/inputSolution"
         android:layout_toEndOf="@+id/btnPow"
-
         android:text="@string/backspace"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -310,6 +309,7 @@
         android:textColor="@color/btn_clr"
         android:backgroundTint="@color/op_btn_clr"/>
 
+
     <Button
         android:id="@+id/btnEquals"
         android:tag="@string/equalBtnTag"
@@ -324,4 +324,16 @@
         android:textColor="#151515"
         android:backgroundTint="@color/op_btn_clr"/>
 
+    <AbsoluteLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <nl.dionsegijn.konfetti.KonfettiView
+            android:id="@+id/confettiView"
+            android:layout_width="391dp"
+            android:layout_height="536dp"
+            android:layout_marginBottom="292dp">
+        </nl.dionsegijn.konfetti.KonfettiView>
+
+    </AbsoluteLayout>
 </RelativeLayout>

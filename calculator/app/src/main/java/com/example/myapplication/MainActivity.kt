@@ -1,8 +1,10 @@
 package com.example.myapplication
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Size
 import android.view.View
 import android.widget.Button
 import android.widget.RelativeLayout
@@ -10,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import nl.dionsegijn.konfetti.KonfettiView
 import kotlin.math.pow
 
 class MainActivity : AppCompatActivity(), View.OnClickListener
@@ -17,6 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
 
     private lateinit var calculationView : TextView
     private lateinit var resultView : TextView
+    private lateinit var confettiView: KonfettiView
 
 
     private var tokens : MutableList<Token> = mutableListOf()
@@ -84,6 +88,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
 
         calculationView = findViewById(R.id.inputOperations)
         resultView = findViewById(R.id.inputSolution)
+        confettiView = findViewById(R.id.confettiView)
 
         initializeMaps()
 
@@ -395,6 +400,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         deleteAll()
         calculationView.text = res
         tokens.add(Token(TokenType.NUMBER, res))
+
+        confettiView.build()
+            .addColors(Color.BLUE, Color.CYAN, Color.YELLOW)
+            .setDirection(0.0, 359.0)
+            .setSpeed(1f, 5f)
+            .setFadeOutEnabled(true)
+            .setTimeToLive(500L)
+            .addSizes(nl.dionsegijn.konfetti.models.Size(12))
+            .setPosition(-50f, confettiView.width + 50f, -50f, confettiView.width + 50f)
+            .streamFor(300, 1000L)
 
     }
 
