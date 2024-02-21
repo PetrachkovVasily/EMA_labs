@@ -324,16 +324,12 @@
         android:textColor="#151515"
         android:backgroundTint="@color/op_btn_clr"/>
 
-    <AbsoluteLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <nl.dionsegijn.konfetti.KonfettiView
-            android:id="@+id/confettiView"
-            android:layout_width="391dp"
-            android:layout_height="536dp"
-            android:layout_marginBottom="292dp">
-        </nl.dionsegijn.konfetti.KonfettiView>
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/confettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnEquals">
+    </nl.dionsegijn.konfetti.KonfettiView>
 
-    </AbsoluteLayout>
 </RelativeLayout>
