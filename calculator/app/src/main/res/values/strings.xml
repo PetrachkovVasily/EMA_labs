@@ -42,4 +42,5 @@
 
     <string name="divideByZeroMessage">Can not divide by zero</string>
 
+    <string name="numberOutputFormat">0.########</string>
 </resources>

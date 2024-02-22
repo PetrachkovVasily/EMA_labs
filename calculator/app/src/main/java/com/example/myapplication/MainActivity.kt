@@ -1,8 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.widget.Button
 import android.widget.RelativeLayout
@@ -10,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
-import kotlin.math.pow
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener
 {
@@ -23,56 +22,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
     private var bracketsCountDiff: Int = 0
     private var calculationException : Exception? = null
 
-    private class Token : Parcelable
-    {
-        var type : TokenType
-        var value : String
-        constructor(type : TokenType, value : String)
-        {
-            this.type = type
-            this.value = value
-        }
+    private lateinit var calculator : Calculator
 
-        constructor(parcel : Parcel)
-        {
-            val data : Array<String?> = arrayOfNulls(2)
-            parcel.readStringArray(data)
-            this.type = TokenType.valueOf(data[0]!!)
-            this.value = data[1]!!
-        }
 
-        override fun writeToParcel(parcel: Parcel, flags: Int)
-        {
-            parcel.writeStringArray(arrayOf(type.toString(), value))
-        }
-
-        override fun describeContents(): Int
-        {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<Token>
-        {
-            override fun createFromParcel(parcel: Parcel): Token
-            {
-                return Token(parcel)
-            }
-
-            override fun newArray(size: Int): Array<Token?> {
-                return arrayOfNulls(size)
-            }
-        }
-
-    }
-
-    private enum class TokenType
-    {
-        NUMBER, OPERATION, OPENBRACKET, CLOSEBRACKET
-    }
-
-    private lateinit var operationPriority : Map<String, Int>
-
-    private lateinit var operations : Map<String, (first : String, second : String) -> String>
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -83,34 +35,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         setEventListeners()
 
         calculationView = findViewById(R.id.inputOperations)
+        calculationView.movementMethod = ScrollingMovementMethod()
         resultView = findViewById(R.id.inputSolution)
-
-        initializeMaps()
+        resultView.movementMethod = ScrollingMovementMethod()
 
         if(savedInstanceState?.isEmpty == false)
         {
             restoreData(savedInstanceState)
         }
-    }
 
-    private fun initializeMaps()
-    {
-        operationPriority = mapOf(
-            getString(R.string.openBracket) to 1,
-            getString(R.string.plus) to 2,
-            getString(R.string.minus) to 2,
-            getString(R.string.multiplication) to 3,
-            getString(R.string.division) to 3,
-            getString(R.string.pow) to 4,
-        )
-
-        operations = mapOf(
-            getString(R.string.plus) to ::calculatePlus,
-            getString(R.string.minus) to ::calculateMinus,
-            getString(R.string.multiplication) to ::calculateMultiplication,
-            getString(R.string.division) to ::calculateDivision,
-            getString(R.string.pow) to ::calculateDegree,
-        )
+        calculator = Calculator()
     }
 
     private fun restoreData(bundle: Bundle)
@@ -168,7 +102,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
     private fun inputDigit(digitButton: Button)
     {
         val digit = digitButton.text
-        if(digit == getString(R.string.point) && !isPointPermitted()) return
+        if(digit == getString(R.string.point))
+        {
+            if(!isPointPermitted()) return
+        }
+        else
+        {
+            if(!isDigitPermitted()) return
+        }
 
         if(tokens.isEmpty() || tokens.last().type != TokenType.NUMBER)
         {
@@ -178,12 +119,59 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         tokens.last().value += digit
         calculationView.append(digit)
 
-        resultView.text = calculate()
+        try
+        {
+            resultView.text = calculator.calculate(getValidExpression())
+            calculationException = null
+        }
+        catch (ex : Exception)
+        {
+            resultView.text = ex.message
+            calculationException = ex
+        }
+    }
+
+    private fun isDigitPermitted() : Boolean
+    {
+
+        if(tokens.isEmpty()) return true
+
+        when (tokens.last().type) {
+            TokenType.CLOSE_BRACKET -> return false
+            TokenType.OPEN_BRACKET, TokenType.OPERATION -> return true
+
+            else -> {}
+        }
+
+        var digitsBeforePoint = 0
+        var digitsAfterPoint = 0
+        var pointFaced = false
+
+        for (symbol in tokens.last().value)
+        {
+            if(symbol.toString() == getString(R.string.point))
+            {
+                pointFaced = true
+                continue
+            }
+
+            if(pointFaced)
+            {
+                digitsAfterPoint++
+            }
+            else
+            {
+                digitsBeforePoint++
+            }
+        }
+
+        return if(pointFaced) digitsAfterPoint < 8
+        else digitsBeforePoint < 6
     }
 
     private fun inputAction(opButton: Button)
     {
-        if( tokens.isEmpty() || tokens.last().type == TokenType.OPENBRACKET) return
+        if( tokens.isEmpty() || tokens.last().type == TokenType.OPEN_BRACKET) return
 
         if( tokens.last().type != TokenType.OPERATION )
         {
@@ -215,8 +203,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
 
         val currToken: String = tokens.last().value
 
-        if(tokens.last().type == TokenType.OPENBRACKET) bracketsCountDiff--
-        else if(tokens.last().type == TokenType.CLOSEBRACKET) bracketsCountDiff++
+        if(tokens.last().type == TokenType.OPEN_BRACKET) bracketsCountDiff--
+        else if(tokens.last().type == TokenType.CLOSE_BRACKET) bracketsCountDiff++
 
         tokens.last().value = currToken.substring(0, currToken.lastIndex)
 
@@ -226,7 +214,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         }
 
         calculationView.text = calculationView.text.substring(0, calculationView.text.lastIndex)
-        resultView.text = calculate()
+
+        try
+        {
+            resultView.text = calculator.calculate(getValidExpression())
+            calculationException = null
+        }
+        catch (ex : Exception)
+        {
+            resultView.text = ""
+            calculationException = ex
+        }
     }
 
     private fun deleteAll()
@@ -237,84 +235,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         tokens.clear()
     }
 
-    private fun calculate() : String
-    {
-        if(tokens.isEmpty()) return ""
-
-        val rpn : MutableList<Token> = buildRPN()
-
-        var ind = 0
-        while (rpn.count() > 1)
-        {
-            if(rpn[ind].type != TokenType.OPERATION)
-            {
-                ind++
-                continue
-            }
-
-            val firstOperand : String = rpn[ind - 2].value
-            val secondOperand : String = rpn[ind - 1].value
-            val operation = operations[rpn[ind].value]!!
-
-            try
-            {
-                rpn[ind] = Token(TokenType.NUMBER, operation.invoke(firstOperand, secondOperand))
-            }
-            catch (ex: Exception)
-            {
-                calculationException = ex
-                return ""
-            }
-
-            rpn.removeAt(ind - 1)
-            rpn.removeAt(ind - 2)
-
-            ind--
-        }
-
-        calculationException = null
-        return rpn.last().value
-    }
-
-
-    private fun buildRPN() : MutableList<Token>
-    {
-        val rpn: MutableList<Token> = mutableListOf()
-
-        val opStack: ArrayDeque<Token> = ArrayDeque()
-
-        for (token: Token in getValidExpression())
-        {
-            when (token.type)
-            {
-                TokenType.OPENBRACKET -> opStack.addLast(token)
-                TokenType.CLOSEBRACKET -> {
-                    while (opStack.last().type != TokenType.OPENBRACKET) {
-                        rpn.add(opStack.removeLast())
-                    }
-                    opStack.removeLast()
-                }
-
-                TokenType.NUMBER -> rpn.add(token)
-                TokenType.OPERATION -> {
-                    while (opStack.isNotEmpty() &&
-                        operationPriority[opStack.last().value]!! > operationPriority[token.value]!!
-                    ) {
-                        rpn.add(opStack.removeLast())
-                    }
-                    opStack.addLast(token)
-                }
-            }
-        }
-
-        while (opStack.isNotEmpty())
-        {
-            rpn.add(opStack.removeLast())
-        }
-
-        return rpn
-    }
-
     private fun getValidExpression(): MutableList<Token>
     {
         val validExpression = tokens.toMutableList()
@@ -322,14 +242,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         var bracketDiff = bracketsCountDiff
 
         while (validExpression.last().type == TokenType.OPERATION ||
-            validExpression.last().type == TokenType.OPENBRACKET)
+            validExpression.last().type == TokenType.OPEN_BRACKET)
         {
-            if(validExpression.last().type == TokenType.OPENBRACKET) bracketDiff--
+            if(validExpression.last().type == TokenType.OPEN_BRACKET) bracketDiff--
             validExpression.removeLast()
         }
         for (i in 1..bracketDiff)
         {
-            validExpression.add(Token(TokenType.CLOSEBRACKET, getString(R.string.closeBracket)))
+            validExpression.add(Token(TokenType.CLOSE_BRACKET, getString(R.string.closeBracket)))
         }
 
         return validExpression
@@ -338,51 +258,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
     private fun inputBrackets()
     {
         if (tokens.isEmpty() ||
-            (tokens.last().type != TokenType.CLOSEBRACKET && tokens.last().type != TokenType.NUMBER))
+            (tokens.last().type != TokenType.CLOSE_BRACKET && tokens.last().type != TokenType.NUMBER))
         {
-            tokens.add(Token(TokenType.OPENBRACKET, getString(R.string.openBracket)))
+            tokens.add(Token(TokenType.OPEN_BRACKET, getString(R.string.openBracket)))
             calculationView.append(getString(R.string.openBracket))
             bracketsCountDiff++
         }
         else if(bracketsCountDiff > 0)
         {
-            tokens.add(Token(TokenType.CLOSEBRACKET, getString(R.string.closeBracket)))
+            tokens.add(Token(TokenType.CLOSE_BRACKET, getString(R.string.closeBracket)))
             calculationView.append(getString(R.string.closeBracket))
             bracketsCountDiff--
         }
     }
 
-    private fun calculatePlus(first: String, second: String): String
-    {
-        return (first.toDouble() + second.toDouble()).toString()
-    }
-
-    private fun calculateMinus(first: String, second: String): String
-    {
-        return (first.toDouble() - second.toDouble()).toString()
-    }
-
-    private fun calculateMultiplication(first: String, second: String): String
-    {
-        return (first.toDouble() * second.toDouble()).toString()
-    }
-
-    private fun calculateDivision(first: String, second: String): String
-    {
-        if (second.toDouble() == 0.0) {
-            throw Exception(getString(R.string.divideByZeroMessage))
-        }
-        return (first.toDouble() / second.toDouble()).toString()
-    }
-
-    private fun calculateDegree(first: String, second: String): String
-    {
-        return ( first.toDouble().pow(second.toDouble()) ).toString()
-    }
 
     private fun execute()
     {
-        val res : String = calculate()
+        lateinit var res : String
+        try
+        {
+            res = calculator.calculate(getValidExpression())
+            calculationException = null
+        }
+        catch (ex : Exception)
+        {
+            calculationException = ex
+        }
 
         if(calculationException != null)
         {
