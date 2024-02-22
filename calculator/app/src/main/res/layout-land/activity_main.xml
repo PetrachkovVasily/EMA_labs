@@ -326,4 +326,11 @@
         android:textColor="@color/btn_clr"
         android:backgroundTint="@color/op_btn_clr"/>
 
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/confettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnEquals">
+    </nl.dionsegijn.konfetti.KonfettiView>
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
@@ -10,12 +11,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 
+import nl.dionsegijn.konfetti.KonfettiView
 
 class MainActivity : AppCompatActivity(), View.OnClickListener
 {
 
     private lateinit var calculationView : TextView
     private lateinit var resultView : TextView
+    private lateinit var confettiView: KonfettiView
 
 
     private var tokens : MutableList<Token> = mutableListOf()
@@ -37,7 +40,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         calculationView = findViewById(R.id.inputOperations)
         calculationView.movementMethod = ScrollingMovementMethod()
         resultView = findViewById(R.id.inputSolution)
+
         resultView.movementMethod = ScrollingMovementMethod()
+
+        confettiView = findViewById(R.id.confettiView)
+
 
         if(savedInstanceState?.isEmpty == false)
         {
@@ -297,6 +304,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
         deleteAll()
         calculationView.text = res
         tokens.add(Token(TokenType.NUMBER, res))
+
+        confettiView.build()
+            .addColors(Color.BLUE, Color.CYAN, Color.YELLOW)
+            .setDirection(0.0, 359.0)
+            .setSpeed(1f, 5f)
+            .setFadeOutEnabled(true)
+            .setTimeToLive(500L)
+            .addSizes(nl.dionsegijn.konfetti.models.Size(12))
+            .setPosition(-50f, confettiView.width + 50f, -50f, confettiView.width + 50f)
+            .streamFor(300, 1000L)
 
     }
 
