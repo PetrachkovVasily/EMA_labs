@@ -11,14 +11,15 @@
     <TextView
         android:id="@+id/inputOperations"
         android:layout_width="345dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:paddingEnd="10sp"
         android:paddingStart="10sp"
         android:paddingTop="5sp"
+        android:scrollbars="vertical"
 
         android:text=""
         android:gravity="end"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/btn_clr"
         android:background="@color/big_btn_clr"/>
@@ -26,15 +27,16 @@
     <TextView
         android:id="@+id/inputSolution"
         android:layout_width="345dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_toEndOf="@+id/inputOperations"
         android:paddingTop="5sp"
         android:paddingEnd="10sp"
         android:paddingStart="10sp"
+        android:scrollbars="vertical"
 
         android:text=""
         android:gravity="end"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/btn_clr"
         android:background="@color/zone_clr"/>
