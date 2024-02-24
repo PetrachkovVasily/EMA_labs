@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/inputOperations"
-        android:layout_width="371dp"
+        android:layout_width="380dp"
         android:layout_height="80dp"
         android:background="@color/big_btn_clr"
         android:gravity="end"
@@ -331,7 +331,8 @@
         android:id="@+id/confettiView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btnEquals">
+        android:layout_above="@+id/btnEquals"
+        android:layout_alignEnd="@+id/btnEquals">
     </nl.dionsegijn.konfetti.KonfettiView>
 
 </RelativeLayout>

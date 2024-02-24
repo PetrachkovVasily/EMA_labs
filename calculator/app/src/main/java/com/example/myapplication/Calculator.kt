@@ -37,7 +37,6 @@ open class Calculator
 
     fun calculate(tokens : MutableList<Token>) : String
     {
-
         if(tokens.isEmpty()) return ""
 
         val rpn : MutableList<Token> = buildRPN(tokens)

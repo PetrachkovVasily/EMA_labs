@@ -282,6 +282,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener
 
     private fun execute()
     {
+        if(tokens.isEmpty()) return
+
         lateinit var res : String
         try
         {
