@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BGR"
+    android:clickable="false"
+    tools:context=".SetPathActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Откуда"
+        android:textSize="20dp"></TextView>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/where_from_street"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:elevation="3dp"
+        android:hint="Улица"
+        android:padding="13dp"
+        android:textColor="@color/MOST_TEXT"
+        android:textColorHighlight="@color/MAIN"
+        android:textColorHint="@color/MOST_TEXT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent=".8"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/where_from_house"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext_background"
+        android:drawablePadding="13dp"
+        android:elevation="3dp"
+        android:hint="Дом"
+        android:padding="13dp"
+        android:textColor="@color/MOST_TEXT"
+        android:textColorHighlight="@color/MAIN"
+        android:textColorHint="@color/MOST_TEXT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/where_from_street"
+        app:layout_constraintWidth_percent=".8"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/where_from_flat"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext_background"
+        android:drawablePadding="13dp"
+        android:elevation="3dp"
+        android:hint="Квартира"
+        android:inputType="textPassword"
+        android:padding="13dp"
+        android:textColor="@color/MOST_TEXT"
+        android:textColorHighlight="@color/MAIN"
+        android:textColorHint="@color/MOST_TEXT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/where_from_house"
+        app:layout_constraintWidth_percent=".8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Куда"
+        android:textSize="20dp"
+        android:layout_marginTop="50dp"></TextView>
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/where_to_street"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:elevation="3dp"
+        android:hint="Улица"
+        android:padding="13dp"
+        android:textColor="@color/MOST_TEXT"
+        android:textColorHighlight="@color/MAIN"
+        android:textColorHint="@color/MOST_TEXT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent=".8"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/where_to_house"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext_background"
+        android:drawablePadding="13dp"
+        android:elevation="3dp"
+        android:hint="Дом"
+        android:padding="13dp"
+        android:textColor="@color/MOST_TEXT"
+        android:textColorHighlight="@color/MAIN"
+        android:textColorHint="@color/MOST_TEXT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/where_to_street"
+        app:layout_constraintWidth_percent=".8"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/where_to_flat"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext_background"
+        android:drawablePadding="13dp"
+        android:elevation="3dp"
+        android:hint="Квартира"
+        android:inputType="textPassword"
+        android:padding="13dp"
+        android:textColor="@color/MOST_TEXT"
+        android:textColorHighlight="@color/MAIN"
+        android:textColorHint="@color/MOST_TEXT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/where_to_house"
+        app:layout_constraintWidth_percent=".8" />
+
+    <Button
+        android:id="@+id/confirm_path_btn"
+        android:layout_width="254dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/BUTTON_CLR"
+        android:text="Подтвердить"
+        android:textAllCaps="true"
+        android:textColor="@color/MAIN"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/last_name" />
+
+
+</LinearLayout>

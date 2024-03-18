@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Toxic" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/MAIN</item>
+        <item name="colorPrimaryVariant">@color/CO_MAIN</item>
+        <item name="colorOnPrimary">@color/BUTTON_TEXT</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/BGR_CARD</item>
+        <item name="colorSecondaryVariant">@color/BUTTON_CLR</item>
+        <item name="colorOnSecondary">@color/MOST_TEXT</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

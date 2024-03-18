@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BGR"
+    android:clickable="false"
+    tools:context=".CallTaxiActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/reg_img"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/login_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_last_name"
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Семён Лёдов"
+        android:paddingTop="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"></TextView>
+    <TextView
+        android:id="@+id/phone_number"
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="+800020031"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"></TextView>
+
+    <Button
+        android:id="@+id/set_path_btn"
+        android:layout_width="254dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/BUTTON_CLR"
+        android:text="Ввести маршрут"
+        android:textAllCaps="true"
+        android:textColor="@color/MAIN"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/path_info"
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="inffo"
+        android:paddingTop="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"></TextView>
+
+    <Button
+        android:id="@+id/call_taxi_btn"
+        android:layout_width="254dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/BUTTON_CLR"
+        android:text="Вызвать такси"
+        android:textAllCaps="true"
+        android:textColor="@color/MAIN"
+        android:textStyle="bold" />
+
+</LinearLayout>

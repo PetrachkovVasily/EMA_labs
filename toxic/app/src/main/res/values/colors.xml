@@ -1,0 +1,9 @@
+<resources>
+    <color name="MAIN">#FED049</color>
+    <color name="CO_MAIN">#F1B87F</color>
+    <color name="BUTTON_TEXT">#FFFFFF</color>
+    <color name="BGR">#CFFDE1</color>
+    <color name="BGR_CARD">#68B984</color>
+    <color name="BUTTON_CLR">#3D5656</color>
+    <color name="MOST_TEXT">#1E2833</color>
+</resources>

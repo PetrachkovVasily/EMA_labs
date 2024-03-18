@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BGR"
+    android:clickable="false"
+    tools:context=".RegistrationActivity"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/reg_img"
+        android:layout_width="300dp"
+        android:layout_height="216dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/login_pic" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toEndOf="@+id/reg_img"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:gravity="center">
+
+
+        <EditText
+            android:layout_marginTop="50dp"
+            android:id="@+id/phone"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:elevation="3dp"
+            android:hint="Телефон"
+            android:padding="13dp"
+            android:textColor="@color/MOST_TEXT"
+            android:textColorHighlight="@color/MAIN"
+            android:textColorHint="@color/MOST_TEXT"
+            app:layout_constraintTop_toBottomOf="@+id/reg_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent=".8"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_background"
+            android:drawablePadding="13dp"
+            android:elevation="3dp"
+            android:hint="Имя"
+            android:padding="13dp"
+            android:textColor="@color/MOST_TEXT"
+            android:textColorHighlight="@color/MAIN"
+            android:textColorHint="@color/MOST_TEXT"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone"
+            app:layout_constraintWidth_percent=".8"
+            android:inputType="textEmailAddress"/>
+
+        <EditText
+            android:id="@+id/last_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_background"
+            android:drawablePadding="13dp"
+            android:elevation="3dp"
+            android:hint="Фамилия"
+            android:inputType="textPassword"
+            android:padding="13dp"
+            android:textColor="@color/MOST_TEXT"
+            android:textColorHighlight="@color/MAIN"
+            android:textColorHint="@color/MOST_TEXT"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintWidth_percent=".8" />
+
+        <Button
+            android:id="@+id/reg_btn"
+            android:layout_width="254dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/BUTTON_CLR"
+            android:text="Зарегистрироваться"
+            android:textAllCaps="true"
+            android:textColor="@color/MAIN"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/last_name" />
+    </LinearLayout>
+
+</RelativeLayout>
