@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reg_img"
         android:layout_marginLeft="80dp"
-        android:layout_toBottomOf="@+id/reg_img"
         android:orientation="vertical">
 
         <TextView
@@ -68,7 +67,6 @@
         android:layout_below="@+id/reg_img"
         android:layout_marginLeft="60dp"
         android:layout_toEndOf="@+id/first_part"
-        android:layout_toBottomOf="@+id/reg_img"
         android:orientation="vertical">
 
         <TextView
