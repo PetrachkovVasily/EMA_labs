@@ -50,7 +50,7 @@
         android:gravity="center"
 
         android:text="@string/clear"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:backgroundTint="@color/big_btn_clr"/>
@@ -66,7 +66,7 @@
         android:gravity="center"
 
         android:text="@string/brackets"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:backgroundTint="@color/big_btn_clr"/>
@@ -81,7 +81,7 @@
         android:gravity="center"
 
         android:text="@string/pow"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:backgroundTint="@color/big_btn_clr"/>
@@ -96,7 +96,7 @@
         android:gravity="center"
 
         android:text="@string/backspace"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:backgroundTint="@color/big_btn_clr"/>
@@ -113,7 +113,7 @@
         android:gravity="center"
         android:text="@string/one"
         android:textColor="@color/op_btn_clr"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
@@ -125,7 +125,7 @@
         android:layout_below="@+id/btnClear"
         android:layout_toEndOf="@+id/btnOne"
         android:text="@string/two"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/op_btn_clr"
         android:backgroundTint="@color/btn_clr"/>
@@ -139,7 +139,7 @@
         android:layout_below="@+id/btnClear"
         android:layout_toEndOf="@+id/btnTwo"
         android:text="@string/three"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/op_btn_clr"
         android:backgroundTint="@color/btn_clr"/>
@@ -153,7 +153,7 @@
         android:layout_below="@+id/btnClear"
         android:layout_toEndOf="@+id/btnThree"
         android:text="@string/division"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/btn_clr"
         android:backgroundTint="@color/op_btn_clr"/>
@@ -169,7 +169,7 @@
         android:gravity="center"
         android:text="@string/four"
         android:textColor="@color/op_btn_clr"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
@@ -181,7 +181,7 @@
         android:layout_below="@+id/btnTwo"
         android:layout_toEndOf="@+id/btnFour"
         android:text="@string/five"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/op_btn_clr"
         android:backgroundTint="@color/btn_clr"/>
@@ -195,7 +195,7 @@
         android:layout_below="@+id/btnThree"
         android:layout_toEndOf="@+id/btnFive"
         android:text="@string/six"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/op_btn_clr"
         android:backgroundTint="@color/btn_clr"/>
@@ -209,7 +209,7 @@
         android:layout_below="@+id/btnDivide"
         android:layout_toEndOf="@+id/btnSix"
         android:text="@string/multiplication"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/btn_clr"
         android:backgroundTint="@color/op_btn_clr"/>
@@ -225,7 +225,7 @@
         android:gravity="center"
         android:text="@string/seven"
         android:textColor="@color/op_btn_clr"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
@@ -237,7 +237,7 @@
         android:layout_below="@+id/btnFive"
         android:layout_toEndOf="@+id/btnSeven"
         android:text="@string/eight"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/op_btn_clr"
         android:backgroundTint="@color/btn_clr"/>
@@ -251,7 +251,7 @@
         android:layout_below="@+id/btnSix"
         android:layout_toEndOf="@+id/btnEight"
         android:text="@string/nine"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/op_btn_clr"
         android:backgroundTint="@color/btn_clr"/>
@@ -265,7 +265,7 @@
         android:layout_below="@+id/btnMultiply"
         android:layout_toEndOf="@+id/btnNine"
         android:text="@string/minus"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/btn_clr"
         android:backgroundTint="@color/op_btn_clr"/>
@@ -281,7 +281,7 @@
         android:gravity="center"
         android:text="@string/point"
         android:textColor="@color/op_btn_clr"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
@@ -293,7 +293,7 @@
         android:layout_below="@+id/btnEight"
         android:layout_toEndOf="@+id/btnDecimal"
         android:text="@string/zero"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/op_btn_clr"
         android:backgroundTint="@color/btn_clr"/>
@@ -307,7 +307,7 @@
         android:layout_below="@+id/btnNine"
         android:layout_toEndOf="@+id/btnZero"
         android:text="@string/plus"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/btn_clr"
         android:backgroundTint="@color/op_btn_clr"/>
@@ -321,7 +321,7 @@
         android:layout_below="@+id/btnSubtract"
         android:layout_toEndOf="@+id/btnAdd"
         android:text="@string/equality"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/btn_clr"
         android:backgroundTint="@color/op_btn_clr"/>
@@ -330,7 +330,8 @@
         android:id="@+id/confettiView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btnEquals">
+        android:layout_above="@+id/btnEquals"
+        android:layout_alignEnd="@+id/btnEquals">
     </nl.dionsegijn.konfetti.KonfettiView>
 
 </RelativeLayout>

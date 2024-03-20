@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Toxic"
+rootProject.name = "toxic"
 include(":app")
  
