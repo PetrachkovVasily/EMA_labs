@@ -67,6 +67,7 @@
         android:text="@string/callTaxi"
         android:textAllCaps="true"
         android:textColor="@color/MAIN"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:visibility="invisible"/>
 
 </LinearLayout>

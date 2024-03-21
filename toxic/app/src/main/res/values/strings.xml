@@ -16,6 +16,7 @@
     <string name="confirm">Подтвердить</string>
     <string name="LOGO">logo</string>
 
+
     <string name="testLogs">testLogs</string>
     <string name="RegistrationActivity">RegistrationActivity</string>
     <string name="onCreate">onCreate</string>
@@ -54,4 +55,5 @@
     <string name="to_flat">to_flat</string>
     <string name="emptyFields">Some are fields empty!</string>
     <string name="confirmAddress">confirmAddress</string>
+
 </resources>

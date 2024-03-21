@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -14,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 
+@Suppress("DEPRECATION")
 class CallTaxiActivity : AppCompatActivity() {
 
 
@@ -25,9 +27,9 @@ class CallTaxiActivity : AppCompatActivity() {
     private var from : Waypoint? = null
     private var to : Waypoint? = null
 
-    private var isReady : Boolean = false
 
     @SuppressLint("CutPasteId", "SetTextI18n")
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -35,16 +37,15 @@ class CallTaxiActivity : AppCompatActivity() {
 
         Log.d(getString(R.string.testLogs), "${getString(R.string.onCreate)} ${getString(R.string.`in`)} ${getString(R.string.CallTaxiActivity)}");
 
+
         //Getting userData from intent
         val currIntent = intent
         val userData = currIntent.getSerializableExtra(getString(R.string.userInfo)) as UserData
-
 
         findViewById<TextView>(R.id.name_last_name).text = userData.fName + " " + userData.lName
         findViewById<TextView>(R.id.phone_number).text = userData.phone
 
         wayInfo = findViewById(R.id.path_info)
-        callBtn = findViewById(R.id.call_taxi_btn)
 
         val toSetPath: Button = findViewById(R.id.set_path_btn)
         toSetPath.setOnClickListener { toCallTaxiActivity() }
@@ -96,12 +97,13 @@ class CallTaxiActivity : AppCompatActivity() {
         if (from == null && to == null)
         {
             wayInfo.text = ""
-            isReady = false
+            callBtn.visibility = View.INVISIBLE
         }
         else
         {
-            wayInfo.text = "${getString(R.string.fromField)}: $from\n${getString(R.string.toField)}: $to"
-            isReady = true
+            callBtn.visibility = View.VISIBLE
+            wayInfo.text = "Откуда: $from\nКуда: $to"
+
         }
 
     }
@@ -117,15 +119,11 @@ class CallTaxiActivity : AppCompatActivity() {
 
     private fun callTaxi()
     {
-        var text = getString(R.string.taxiGet)
-        if(!isReady)
-        {
-            text = getString(R.string.setPathAlert)
 
-            Log.d(getString(R.string.testLogs), "${getString(R.string.call)} ${getString(R.string.CLICK)} ${getString(R.string.failed)}");
-        } else {
-            Log.d(getString(R.string.testLogs), "${getString(R.string.call)} ${getString(R.string.CLICK)} ${getString(R.string.succeeded)}");
-        }
+        val text = "Wait for taxi. Good luck!"
+
+        Log.d("testLogs", "callTaxi CLICK succeeded")
+
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 }
