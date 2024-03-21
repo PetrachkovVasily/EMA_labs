@@ -15,4 +15,6 @@
     <string name="toField">Куда</string>
     <string name="confirm">Подтвердить</string>
     <string name="LOGO">logo</string>
+    <string name="saveUserData">User data saved</string>
+    <string name="incorrectValues">Some values are incorrect</string>
 </resources>

@@ -46,15 +46,15 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun toCallTaxiActivity()
     {
-        val intent = Intent(this@RegistrationActivity, CallTaxiActivity::class.java)
 
         if(!checkAndSetUserData())
         {
-            Toast.makeText(this, "Some values incorrect", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Some values are incorrect", Toast.LENGTH_SHORT).show()
             return
         }
 
 
+        val intent = Intent(this@RegistrationActivity, CallTaxiActivity::class.java)
         intent.putExtra("userInfo", userData)
 
         startActivity(intent)
