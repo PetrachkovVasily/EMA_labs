@@ -1,5 +1,6 @@
 package com.example.toxic
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 
 class CallTaxiActivity : AppCompatActivity() {
 
@@ -24,16 +27,17 @@ class CallTaxiActivity : AppCompatActivity() {
 
     private var isReady : Boolean = false
 
+    @SuppressLint("CutPasteId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.call_taxi_activity)
 
-        Log.d("testLogs", "onCreate in CallTaxiActivity");
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onCreate)} ${getString(R.string.`in`)} ${getString(R.string.CallTaxiActivity)}");
 
         //Getting userData from intent
         val currIntent = intent
-        val userData = currIntent.getSerializableExtra("userInfo") as UserData
+        val userData = currIntent.getSerializableExtra(getString(R.string.userInfo)) as UserData
 
 
         findViewById<TextView>(R.id.name_last_name).text = userData.fName + " " + userData.lName
@@ -55,9 +59,39 @@ class CallTaxiActivity : AppCompatActivity() {
 
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    override fun onStart() {
+        super.onStart()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onStart)} ${getString(R.string.`in`)} ${getString(R.string.CallTaxiActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    override fun onResume() {
+        super.onResume()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onResume)} ${getString(R.string.`in`)} ${getString(R.string.CallTaxiActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    override fun onPause() {
+        super.onPause()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onPause)} ${getString(R.string.`in`)} ${getString(R.string.CallTaxiActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    override fun onStop() {
+        super.onStop()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onStop)} ${getString(R.string.`in`)} ${getString(R.string.CallTaxiActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onDestroy)} ${getString(R.string.`in`)} ${getString(R.string.CallTaxiActivity)}");
+    }
+
     private fun setResult(result : ActivityResult) {
-        from = result.data?.getSerializableExtra("from") as Waypoint
-        to = result.data?.getSerializableExtra("to") as Waypoint
+        from = result.data?.getSerializableExtra(getString(R.string.from)) as Waypoint
+        to = result.data?.getSerializableExtra(getString(R.string.to)) as Waypoint
 
         if (from == null && to == null)
         {
@@ -66,7 +100,7 @@ class CallTaxiActivity : AppCompatActivity() {
         }
         else
         {
-            wayInfo.text = "Откуда: $from\nКуда: $to"
+            wayInfo.text = "${getString(R.string.fromField)}: $from\n${getString(R.string.toField)}: $to"
             isReady = true
         }
 
@@ -78,19 +112,19 @@ class CallTaxiActivity : AppCompatActivity() {
 
         startForResult.launch(intent)
 
-        Log.d("testLogs", "toSetPath CLICK");
+        Log.d(getString(R.string.testLogs), "${getString(R.string.toSetPath)} ${getString(R.string.CLICK)}");
     }
 
     private fun callTaxi()
     {
-        var text = "Wait for taxi. Good luck!"
+        var text = getString(R.string.taxiGet)
         if(!isReady)
         {
-            text = "Set path first"
+            text = getString(R.string.setPathAlert)
 
-            Log.d("testLogs", "callTaxi CLICK failed");
+            Log.d(getString(R.string.testLogs), "${getString(R.string.call)} ${getString(R.string.CLICK)} ${getString(R.string.failed)}");
         } else {
-            Log.d("testLogs", "callTaxi CLICK succeeded");
+            Log.d(getString(R.string.testLogs), "${getString(R.string.call)} ${getString(R.string.CLICK)} ${getString(R.string.succeeded)}");
         }
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
