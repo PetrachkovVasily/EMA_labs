@@ -9,6 +9,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import java.io.Serializable
 
 class RegistrationActivity : AppCompatActivity() {
@@ -30,7 +32,7 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.reg_activity)
 
-        Log.d("testLogs", "onCreate in RegistrationActivity");
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onCreate)} ${getString(R.string.`in`)} ${getString(R.string.RegistrationActivity)}");
 
         phoneRegex = Regex(getString(R.string.phone_regex))
 
@@ -39,9 +41,39 @@ class RegistrationActivity : AppCompatActivity() {
 
         setInputs()
 
-        mSettings = getSharedPreferences("userData", MODE_PRIVATE)
+        mSettings = getSharedPreferences(getString(R.string.userInfo), MODE_PRIVATE)
 
         getUserData()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    override fun onStart() {
+        super.onStart()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onStart)} ${getString(R.string.`in`)} ${getString(R.string.RegistrationActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    override fun onResume() {
+        super.onResume()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onResume)} ${getString(R.string.`in`)} ${getString(R.string.RegistrationActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    override fun onPause() {
+        super.onPause()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onPause)} ${getString(R.string.`in`)} ${getString(R.string.RegistrationActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    override fun onStop() {
+        super.onStop()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onStop)} ${getString(R.string.`in`)} ${getString(R.string.RegistrationActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onDestroy)} ${getString(R.string.`in`)} ${getString(R.string.RegistrationActivity)}");
     }
 
     private fun toCallTaxiActivity()
@@ -49,17 +81,20 @@ class RegistrationActivity : AppCompatActivity() {
 
         if(!checkAndSetUserData())
         {
-            Toast.makeText(this, "Some values are incorrect", Toast.LENGTH_SHORT).show()
+
+            Toast.makeText(this, getString(R.string.incorrectValues), Toast.LENGTH_SHORT).show()
+
             return
         }
 
 
-        val intent = Intent(this@RegistrationActivity, CallTaxiActivity::class.java)
-        intent.putExtra("userInfo", userData)
+
+        intent.putExtra(getString(R.string.userInfo), userData)
+
 
         startActivity(intent)
 
-        Log.d("testLogs", "continueBtn CLICK");
+        Log.d(getString(R.string.testLogs), "${getString(R.string.continueBtn)} ${getString(R.string.CLICK)}");
     }
 
     private fun setInputs()
@@ -79,15 +114,15 @@ class RegistrationActivity : AppCompatActivity() {
 
         setUserData()
 
-        Log.d("testLogs", "UserData check");
+        Log.d(getString(R.string.testLogs), "${getString(R.string.userInfo)} ${getString(R.string.check)}");
         return true
     }
 
     private fun getUserData()
     {
-        val savedPhone = mSettings.getString("phone", null)
-        val savedFName = mSettings.getString("fName", null)
-        val savedLName = mSettings.getString("lName", null)
+        val savedPhone = mSettings.getString(getString(R.string.phone), null)
+        val savedFName = mSettings.getString(getString(R.string.fName), null)
+        val savedLName = mSettings.getString(getString(R.string.lName), null)
 
         if(savedPhone == null || savedFName == null || savedLName == null) return
 
@@ -95,9 +130,9 @@ class RegistrationActivity : AppCompatActivity() {
         fNameInput.setText(savedFName)
         lNameInput.setText(savedLName)
 
-        continueBtn.text = "Войти"
+        continueBtn.text = getString(R.string.enter)
 
-        Log.d("testLogs", "UserData get");
+        Log.d(getString(R.string.testLogs), "${getString(R.string.userInfo)} ${getString(R.string.get)}");
     }
 
     private fun setUserData()
@@ -107,11 +142,11 @@ class RegistrationActivity : AppCompatActivity() {
             lNameInput.text.toString())
 
         var editor = mSettings.edit()
-        editor.putString("phone", userData!!.phone)
-        editor.putString("fName", userData!!.fName)
-        editor.putString("lName", userData!!.lName)
+        editor.putString(getString(R.string.phone), userData!!.phone)
+        editor.putString(getString(R.string.fName), userData!!.fName)
+        editor.putString(getString(R.string.lName), userData!!.lName)
         editor.commit()
 
-        Toast.makeText(this, "User data saved", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.saveUserData), Toast.LENGTH_SHORT).show()
     }
 }

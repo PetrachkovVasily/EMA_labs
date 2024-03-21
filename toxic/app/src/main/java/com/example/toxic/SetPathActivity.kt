@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 
 class SetPathActivity : AppCompatActivity() {
 
@@ -21,7 +23,7 @@ class SetPathActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.set_path_activity)
 
-        Log.d("testLogs", "onCreate in RegistrationActivity");
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onCreate)} ${getString(R.string.`in`)} ${getString(R.string.SetPathActivity)}");
 
         val button: Button = findViewById(R.id.confirm_path_btn)
         button.setOnClickListener { confirmAddress() }
@@ -29,15 +31,45 @@ class SetPathActivity : AppCompatActivity() {
         setInputs()
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    override fun onStart() {
+        super.onStart()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onStart)} ${getString(R.string.`in`)} ${getString(R.string.SetPathActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    override fun onResume() {
+        super.onResume()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onResume)} ${getString(R.string.`in`)} ${getString(R.string.SetPathActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    override fun onPause() {
+        super.onPause()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onPause)} ${getString(R.string.`in`)} ${getString(R.string.SetPathActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    override fun onStop() {
+        super.onStop()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onStop)} ${getString(R.string.`in`)} ${getString(R.string.SetPathActivity)}");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(getString(R.string.testLogs), "${getString(R.string.onDestroy)} ${getString(R.string.`in`)} ${getString(R.string.SetPathActivity)}");
+    }
+
     private fun setInputs()
     {
-        inputs.putIfAbsent("from_street", findViewById(R.id.where_from_street))
-        inputs.putIfAbsent("from_house", findViewById(R.id.where_from_house))
-        inputs.putIfAbsent("from_flat", findViewById(R.id.where_from_flat))
+        inputs.putIfAbsent(getString(R.string.from_street), findViewById(R.id.where_from_street))
+        inputs.putIfAbsent(getString(R.string.from_house), findViewById(R.id.where_from_house))
+        inputs.putIfAbsent(getString(R.string.from_flat), findViewById(R.id.where_from_flat))
 
-        inputs.putIfAbsent("to_street", findViewById(R.id.where_to_street))
-        inputs.putIfAbsent("to_house", findViewById(R.id.where_to_house))
-        inputs.putIfAbsent("to_flat", findViewById(R.id.where_to_flat))
+        inputs.putIfAbsent(getString(R.string.to_street), findViewById(R.id.where_to_street))
+        inputs.putIfAbsent(getString(R.string.to_house), findViewById(R.id.where_to_house))
+        inputs.putIfAbsent(getString(R.string.to_flat), findViewById(R.id.where_to_flat))
 
     }
 
@@ -47,17 +79,17 @@ class SetPathActivity : AppCompatActivity() {
 
         if(!checkAndSetWaypoints())
         {
-            Toast.makeText(this, "Some fields empty!", Toast.LENGTH_LONG).show()
-            Log.d("testLogs", "confirmAddress CLICK failed");
+            Toast.makeText(this, getString(R.string.emptyFields), Toast.LENGTH_LONG).show()
+            Log.d(getString(R.string.testLogs), "${getString(R.string.confirmAddress)} ${getString(R.string.CLICK)} ${getString(R.string.failed)}");
             return
         }
 
-        intent.putExtra("from", from)
-        intent.putExtra("to", to)
+        intent.putExtra(getString(R.string.from), from)
+        intent.putExtra(getString(R.string.to), to)
 
         setResult(0, intent)
 
-        Log.d("testLogs", "confirmAddress CLICK succeeded");
+        Log.d(getString(R.string.testLogs), "${getString(R.string.confirmAddress)} ${getString(R.string.CLICK)} ${getString(R.string.succeeded)}");
 
         finish()
     }
@@ -70,14 +102,14 @@ class SetPathActivity : AppCompatActivity() {
         }
 
         from = Waypoint(
-            inputs["from_street"]!!.text.toString(),
-            inputs["from_house"]!!.text.toString(),
-            inputs["from_flat"]!!.text.toString())
+            inputs[getString(R.string.from_street)]!!.text.toString(),
+            inputs[getString(R.string.from_house)]!!.text.toString(),
+            inputs[getString(R.string.from_flat)]!!.text.toString())
 
         to = Waypoint(
-            inputs["to_street"]!!.text.toString(),
-            inputs["to_house"]!!.text.toString(),
-            inputs["to_flat"]!!.text.toString())
+            inputs[getString(R.string.to_street)]!!.text.toString(),
+            inputs[getString(R.string.to_house)]!!.text.toString(),
+            inputs[getString(R.string.to_flat)]!!.text.toString())
 
         return true
     }
