@@ -20,7 +20,8 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/login_pic" />
+        android:src="@drawable/login_pic"
+        android:contentDescription="@string/LOGO" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,7 +29,7 @@
         android:orientation="vertical"
         android:layout_toEndOf="@+id/reg_img"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
         android:gravity="center">
 
 
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
             android:elevation="3dp"
-            android:hint="Телефон"
+            android:hint="@string/phoneNumber"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
             android:textColorHighlight="@color/MAIN"
@@ -58,7 +59,7 @@
             android:background="@drawable/edittext_background"
             android:drawablePadding="13dp"
             android:elevation="3dp"
-            android:hint="Имя"
+            android:hint="@string/firstName"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
             android:textColorHighlight="@color/MAIN"
@@ -77,7 +78,7 @@
             android:background="@drawable/edittext_background"
             android:drawablePadding="13dp"
             android:elevation="3dp"
-            android:hint="Фамилия"
+            android:hint="@string/lastName"
             android:inputType="textPassword"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
@@ -94,7 +95,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/BUTTON_CLR"
-            android:text="Зарегистрироваться"
+            android:text="@string/registrationBtn"
             android:textAllCaps="true"
             android:textColor="@color/MAIN"
             android:textStyle="bold"

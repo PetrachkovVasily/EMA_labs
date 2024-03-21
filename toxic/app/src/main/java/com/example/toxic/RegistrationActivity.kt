@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.JsonWriter
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -28,6 +29,8 @@ class RegistrationActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.reg_activity)
+
+        Log.d("testLogs", "onCreate in RegistrationActivity");
 
         phoneRegex = Regex(getString(R.string.phone_regex))
 
@@ -55,6 +58,8 @@ class RegistrationActivity : AppCompatActivity() {
         intent.putExtra("userInfo", userData)
 
         startActivity(intent)
+
+        Log.d("testLogs", "continueBtn CLICK");
     }
 
     private fun setInputs()
@@ -73,6 +78,8 @@ class RegistrationActivity : AppCompatActivity() {
         if(fNameInput.text.trim().isEmpty() || lNameInput.text.trim().isEmpty()) return false
 
         setUserData()
+
+        Log.d("testLogs", "UserData check");
         return true
     }
 
@@ -89,6 +96,8 @@ class RegistrationActivity : AppCompatActivity() {
         lNameInput.setText(savedLName)
 
         continueBtn.text = "Войти"
+
+        Log.d("testLogs", "UserData get");
     }
 
     private fun setUserData()

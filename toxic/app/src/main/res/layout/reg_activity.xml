@@ -18,7 +18,8 @@
         android:src="@drawable/login_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/LOGO" />
 
     <EditText
         android:layout_marginTop="50dp"
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_background"
         android:elevation="3dp"
-        android:hint="Телефон"
+        android:hint="@string/phoneNumber"
         android:padding="13dp"
         android:textColor="@color/MOST_TEXT"
         android:textColorHighlight="@color/MAIN"
@@ -46,7 +47,7 @@
         android:background="@drawable/edittext_background"
         android:drawablePadding="13dp"
         android:elevation="3dp"
-        android:hint="Имя"
+        android:hint="@string/firstName"
         android:padding="13dp"
         android:textColor="@color/MOST_TEXT"
         android:textColorHighlight="@color/MAIN"
@@ -65,7 +66,7 @@
         android:background="@drawable/edittext_background"
         android:drawablePadding="13dp"
         android:elevation="3dp"
-        android:hint="Фамилия"
+        android:hint="@string/lastName"
         android:padding="13dp"
         android:textColor="@color/MOST_TEXT"
         android:textColorHighlight="@color/MAIN"
@@ -81,7 +82,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/BUTTON_CLR"
-        android:text="Зарегистрироваться"
+        android:text="@string/registrationBtn"
         android:textAllCaps="true"
         android:textColor="@color/MAIN"
         android:textStyle="bold"

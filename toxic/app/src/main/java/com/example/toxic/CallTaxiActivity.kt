@@ -3,6 +3,7 @@ package com.example.toxic
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -27,6 +28,8 @@ class CallTaxiActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.call_taxi_activity)
+
+        Log.d("testLogs", "onCreate in CallTaxiActivity");
 
         //Getting userData from intent
         val currIntent = intent
@@ -74,6 +77,8 @@ class CallTaxiActivity : AppCompatActivity() {
         val intent = Intent(this@CallTaxiActivity, SetPathActivity::class.java)
 
         startForResult.launch(intent)
+
+        Log.d("testLogs", "toSetPath CLICK");
     }
 
     private fun callTaxi()
@@ -82,6 +87,10 @@ class CallTaxiActivity : AppCompatActivity() {
         if(!isReady)
         {
             text = "Set path first"
+
+            Log.d("testLogs", "callTaxi CLICK failed");
+        } else {
+            Log.d("testLogs", "callTaxi CLICK succeeded");
         }
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }

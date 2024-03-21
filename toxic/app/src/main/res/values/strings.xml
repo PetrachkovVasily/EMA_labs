@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Toxic</string>
     <string name="phone_regex">^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$</string>
+
+    <string name="enterPath">Ввести маршрут</string>
+    <string name="callTaxi">Вызвать такси</string>
+    <string name="phoneNumber">Телефон</string>
+    <string name="firstName">Имя</string>
+    <string name="lastName">Фамилия</string>
+    <string name="registrationBtn">Зарегистрироваться</string>
+    <string name="fromField">Откуда</string>
+    <string name="street">Улица</string>
+    <string name="house">Дом</string>
+    <string name="flatNumber">Квартира</string>
+    <string name="toField">Куда</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="LOGO">logo</string>
 </resources>

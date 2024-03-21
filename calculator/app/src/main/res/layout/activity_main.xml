@@ -331,8 +331,13 @@
         android:id="@+id/confettiView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+<<<<<<< Updated upstream
         android:layout_above="@+id/btnEquals"
         android:layout_alignEnd="@+id/btnEquals">
+=======
+        android:layout_alignEnd="@+id/btnEquals"
+        android:layout_above="@+id/btnEquals">
+>>>>>>> Stashed changes
     </nl.dionsegijn.konfetti.KonfettiView>
 
 </RelativeLayout>

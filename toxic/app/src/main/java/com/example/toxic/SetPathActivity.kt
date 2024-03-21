@@ -3,6 +3,7 @@ package com.example.toxic
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -20,6 +21,7 @@ class SetPathActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.set_path_activity)
 
+        Log.d("testLogs", "onCreate in RegistrationActivity");
 
         val button: Button = findViewById(R.id.confirm_path_btn)
         button.setOnClickListener { confirmAddress() }
@@ -46,6 +48,7 @@ class SetPathActivity : AppCompatActivity() {
         if(!checkAndSetWaypoints())
         {
             Toast.makeText(this, "Some fields empty!", Toast.LENGTH_LONG).show()
+            Log.d("testLogs", "confirmAddress CLICK failed");
             return
         }
 
@@ -53,6 +56,9 @@ class SetPathActivity : AppCompatActivity() {
         intent.putExtra("to", to)
 
         setResult(0, intent)
+
+        Log.d("testLogs", "confirmAddress CLICK succeeded");
+
         finish()
     }
 

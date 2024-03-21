@@ -17,14 +17,15 @@
         android:src="@drawable/login_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/LOGO" />
 
     <LinearLayout
         android:id="@+id/first_part"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/reg_img"
-        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
         android:orientation="vertical">
 
         <TextView
@@ -34,8 +35,8 @@
             android:paddingLeft="30dp"
             android:paddingTop="30dp"
             android:paddingRight="30dp"
-            android:text="Семён Лёдов"
-            android:textSize="20dp"></TextView>
+            android:text=""
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/phone_number"
@@ -44,8 +45,8 @@
             android:layout_toEndOf="@+id/name_last_name"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
-            android:text="+800020031"
-            android:textSize="20dp"></TextView>
+            android:text=""
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/set_path_btn"
@@ -54,10 +55,11 @@
             android:layout_marginTop="50dp"
             android:layout_toEndOf="@+id/phone_number"
             android:backgroundTint="@color/BUTTON_CLR"
-            android:text="Ввести маршрут"
+            android:text="@string/enterPath"
             android:textAllCaps="true"
             android:textColor="@color/MAIN"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="ObsoleteLayoutParam" />
     </LinearLayout>
 
 
@@ -65,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/reg_img"
-        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
         android:layout_toEndOf="@+id/first_part"
         android:orientation="vertical">
 
@@ -76,8 +78,8 @@
             android:paddingLeft="30dp"
             android:paddingTop="30dp"
             android:paddingRight="30dp"
-            android:text="inffo"
-            android:textSize="20dp"></TextView>
+            android:text=""
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/call_taxi_btn"
@@ -85,7 +87,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/BUTTON_CLR"
-            android:text="Вызвать такси"
+            android:text="@string/callTaxi"
             android:textAllCaps="true"
             android:textColor="@color/MAIN"
             android:textStyle="bold" />

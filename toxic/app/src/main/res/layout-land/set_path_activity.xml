@@ -13,13 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="50dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Откуда"
-            android:textSize="20dp"></TextView>
+            android:text="@string/fromField"
+            android:textSize="20sp" />
 
         <EditText
             android:layout_marginTop="10dp"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
             android:elevation="3dp"
-            android:hint="Улица"
+            android:hint="@string/street"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
             android:textColorHighlight="@color/MAIN"
@@ -46,7 +47,7 @@
             android:background="@drawable/edittext_background"
             android:drawablePadding="13dp"
             android:elevation="3dp"
-            android:hint="Дом"
+            android:hint="@string/house"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
             android:textColorHighlight="@color/MAIN"
@@ -65,7 +66,7 @@
             android:background="@drawable/edittext_background"
             android:drawablePadding="13dp"
             android:elevation="3dp"
-            android:hint="Квартира"
+            android:hint="@string/flatNumber"
             android:inputType="textPassword"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
@@ -83,14 +84,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_toEndOf="@+id/first_half"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="50dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Куда"
-            android:textSize="20dp"
-            ></TextView>
+            android:text="@string/toField"
+            android:textSize="20sp" />
         <EditText
             android:layout_marginTop="10dp"
             android:id="@+id/where_to_street"
@@ -98,7 +99,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
             android:elevation="3dp"
-            android:hint="Улица"
+            android:hint="@string/street"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
             android:textColorHighlight="@color/MAIN"
@@ -116,7 +117,7 @@
             android:background="@drawable/edittext_background"
             android:drawablePadding="13dp"
             android:elevation="3dp"
-            android:hint="Дом"
+            android:hint="@string/house"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
             android:textColorHighlight="@color/MAIN"
@@ -135,7 +136,7 @@
             android:background="@drawable/edittext_background"
             android:drawablePadding="13dp"
             android:elevation="3dp"
-            android:hint="Квартира"
+            android:hint="@string/flatNumber"
             android:inputType="textPassword"
             android:padding="13dp"
             android:textColor="@color/MOST_TEXT"
@@ -154,9 +155,9 @@
         android:layout_height="60dp"
         android:layout_below="@+id/first_half"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="250dp"
+        android:layout_marginStart="250dp"
         android:backgroundTint="@color/BUTTON_CLR"
-        android:text="Подтвердить"
+        android:text="@string/confirm"
         android:textAllCaps="true"
         android:textColor="@color/MAIN"
         android:textStyle="bold"
