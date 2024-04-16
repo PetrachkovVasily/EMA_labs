@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".CatalogueActivity">
 
+    <ListView
+        android:id="@+id/catalogue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-42dp">
+
+    </ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
