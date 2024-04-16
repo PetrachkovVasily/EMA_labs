@@ -11,7 +11,6 @@
         android:id="@+id/item_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"
         android:textSize="16sp"
         android:textStyle="bold"/>
 
@@ -22,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginStart="16dp"
-        android:text="Name"
         android:textSize="16sp"/>
 
 

@@ -1,5 +1,6 @@
 package com.example.checkbox_shop
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,17 +10,17 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
 
-class ItemsAdapter (private val context: Context, private val arrGoodsAdapter: ArrayList<Item>) :
-    BaseAdapter(), CompoundButton.OnCheckedChangeListener {
+class ItemsAdapter (context: Context, private val arrItemsAdapter: ArrayList<Item>) :
+    BaseAdapter() {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun getCount(): Int {
-        return arrGoodsAdapter.size
+        return arrItemsAdapter.size
     }
 
     override fun getItem(position: Int): Any {
-        return arrGoodsAdapter[position]
+        return arrItemsAdapter[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -28,25 +29,48 @@ class ItemsAdapter (private val context: Context, private val arrGoodsAdapter: A
 
     override fun getView(position: Int, convertView: View?, viewGroup: ViewGroup?): View {
         var view = convertView
+
         if (view == null) {
             view = layoutInflater.inflate(R.layout.catalogue_item, viewGroup, false)
         }
-        val goodTemp = arrGoodsAdapter[position]
-        val tvGoodId = view!!.findViewById<TextView>(R.id.item_id)
-        tvGoodId.text = goodTemp.id.toString()
-        val tvGoodName = view.findViewById<TextView>(R.id.item_name)
-        tvGoodName.text = goodTemp.name
-        val cbGood = view.findViewById<CheckBox>(R.id.checkbox_add_to_cart)
-        cbGood.isChecked = goodTemp.check
-        cbGood.tag = position
-        cbGood.setOnCheckedChangeListener(this)
+
+
+        return  createItem(position, view!!)
+    }
+
+    @SuppressLint("ResourceType")
+    private fun createItem(position: Int, view: View):View {
+        val itemTemp = arrItemsAdapter[position]
+
+        val itemId = view.findViewById<TextView>(R.id.item_id)
+        itemId.text = itemTemp.id.toString()
+
+        val itemName = view.findViewById<TextView>(R.id.item_name)
+        itemName.text = itemTemp.name
+
+        val itemIsChecked = view.findViewById<CheckBox>(R.id.checkbox_add_to_cart)
+        itemIsChecked.isChecked = itemTemp.check
+        itemIsChecked.tag = position
+
+//        itemIsChecked.setOnCheckedChangeListener { buttonView, isChecked ->
+//            val position = buttonView.tag as Int
+//            arrItemsAdapter[position].check = isChecked
+//            val footerCounter:TextView = view.findViewById(R.layout.catalogue_item)
+//            updateCartCount(footerCounter)
+//        }
+
         return view
     }
 
-    override fun onCheckedChanged(compoundButton: CompoundButton?, isChecked: Boolean) {
+    private fun updateCartCount(footerCounter: TextView) {
+        val countChecked = arrItemsAdapter.count { it.check }
+        footerCounter.text = "Товаров в корзине: $countChecked"
+    }
+
+    fun onCheckedChanged(compoundButton: CompoundButton?, isChecked: Boolean) {
         if (compoundButton != null && compoundButton.isShown) {
             val i = compoundButton.tag as Int
-            arrGoodsAdapter[i].check = isChecked
+            arrItemsAdapter[i].check = isChecked
             notifyDataSetChanged()
         }
     }

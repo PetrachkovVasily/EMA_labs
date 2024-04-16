@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">checkbox-shop</string>
+    <string name="catalogue">Catalogue</string>
 </resources>
