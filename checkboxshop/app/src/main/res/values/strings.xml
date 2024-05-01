@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">checkbox-shop</string>
+    <string name="app_name">Sample shop</string>
     <string name="catalogue">Catalogue</string>
+    <string name="cart_header_start">"You have "</string>
+    <string name="cart_header_end">" item(s) in cart"</string>
+    <string name="to_cart">To Cart</string>
+    <string name="in_cart">"Items in cart: "</string>
+    <string name="zero">0</string>
 </resources>

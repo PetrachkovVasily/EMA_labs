@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/header_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cart_header_start"
+        android:textAlignment="textStart"
+        android:paddingStart="12dp"
+        android:paddingEnd="0dp"
+        android:textSize="24sp"/>
+    <TextView
+        android:id="@+id/items_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="24sp"
+        android:text="@string/zero"/>
+    <TextView
+        android:id="@+id/header_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cart_header_end"
+        android:textAlignment="textStart"
+        android:textSize="24sp"/>
+</LinearLayout>
