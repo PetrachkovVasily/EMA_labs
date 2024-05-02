@@ -11,16 +11,17 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.checkbox_shop.adapters.CheckedItemsAdapter
 import com.example.checkbox_shop.interfaces.OnCheckedChangeListener
-import com.example.checkbox_shop.models.Item
+import com.example.checkbox_shop.models.ItemData
 
 private const val SIZE_OF_ARR = 25
 
 class CatalogueActivity : AppCompatActivity(), OnCheckedChangeListener, OnClickListener {
 
     private lateinit var catalogue: ListView
-    private var arrItems: ArrayList<Item> = ArrayList()
+    private var arrItems: ArrayList<ItemData> = ArrayList()
     private lateinit var itemsAdapter : CheckedItemsAdapter
     private lateinit var checkedCounter : TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,14 +62,14 @@ class CatalogueActivity : AppCompatActivity(), OnCheckedChangeListener, OnClickL
     }
     private fun insertFooter(layoutInflater: LayoutInflater) {
         val catalogueFooter = layoutInflater.inflate(R.layout.footer, catalogue, false)
-        catalogue.addFooterView(catalogueFooter)
+        catalogue.addFooterView(catalogueFooter, "Footer", false)
     }
 
     //Initialize catalogue items
     @Suppress("DEPRECATION")
     private fun fillData(saveItems : Bundle?) {
 
-        val savedItems = saveItems?.getParcelableArrayList<Item>("items")
+        val savedItems = saveItems?.getParcelableArrayList<ItemData>("items")
         if(savedItems != null)
         {
             arrItems = savedItems
@@ -79,7 +80,7 @@ class CatalogueActivity : AppCompatActivity(), OnCheckedChangeListener, OnClickL
         var i = 0
         while (i < SIZE_OF_ARR) {
             i++
-            arrItems.add(Item(i, " Catalogue item No$i", false))
+            arrItems.add(ItemData(i, " Catalogue item No$i", false))
         }
     }
 

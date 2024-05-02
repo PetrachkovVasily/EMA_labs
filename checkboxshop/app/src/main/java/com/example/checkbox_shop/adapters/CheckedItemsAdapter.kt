@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
-import com.example.checkbox_shop.models.Item
+import com.example.checkbox_shop.models.ItemData
 import com.example.checkbox_shop.interfaces.OnCheckedChangeListener
 import com.example.checkbox_shop.R
 
 class CheckedItemsAdapter(
     context: Context,
-    items: ArrayList<Item>,
+    items: ArrayList<ItemData>,
     private val checkedChangedListener: OnCheckedChangeListener
 ) : ItemsAdapter(context, items), CompoundButton.OnCheckedChangeListener {
 
-    private var checkedItems : ArrayList<Item>
+    private var checkedItems : ArrayList<ItemData>
 
     init {
         checkedItems = ArrayList( items.filter { it.check } )
@@ -37,7 +37,7 @@ class CheckedItemsAdapter(
     }
 
     //Return all checked items of dataset
-    fun getCheckedItems() : ArrayList<Item>
+    fun getCheckedItems() : ArrayList<ItemData>
     {
         return checkedItems
     }

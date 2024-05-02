@@ -7,12 +7,12 @@ import android.view.View
 import android.widget.ListView
 import android.widget.TextView
 import com.example.checkbox_shop.adapters.ItemsAdapter
-import com.example.checkbox_shop.models.Item
+import com.example.checkbox_shop.models.ItemData
 
 
 class CartActivity : AppCompatActivity() {
 
-    private var cartItems : ArrayList<Item> = arrayListOf()
+    private var cartItems : ArrayList<ItemData> = arrayListOf()
     private lateinit var cart: ListView
 
     @Suppress("DEPRECATION")
@@ -21,7 +21,7 @@ class CartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cart)
 
         //Retrieve items from parcel
-        cartItems = intent.getParcelableArrayListExtra<Item>("items")!!
+        cartItems = intent.getParcelableArrayListExtra<ItemData>("items")!!
         cartItems.sortBy { it.id }
 
         initView()
@@ -47,6 +47,6 @@ class CartActivity : AppCompatActivity() {
     }
     private fun insertHeader(layoutInflater: LayoutInflater) {
         val catalogueHeader = layoutInflater.inflate(R.layout.cart_header, cart, false)
-        cart.addHeaderView(catalogueHeader)
+        cart.addHeaderView(catalogueHeader, "Header", false)
     }
 }
