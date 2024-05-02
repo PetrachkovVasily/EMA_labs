@@ -3,7 +3,7 @@ package com.example.checkbox_shop.models
 import android.os.Parcel
 import android.os.Parcelable
 
-class Item(var id: Int, var name: String, var check: Boolean) : Parcelable
+class ItemData(var id: Int, var name: String, var check: Boolean) : Parcelable
 {
     //Constructor for item creation from parcel
     constructor(parcel: Parcel) : this(
@@ -24,13 +24,13 @@ class Item(var id: Int, var name: String, var check: Boolean) : Parcelable
     }
 
     //Creator object is used for item creation and filling it with data from parcel
-    companion object CREATOR : Parcelable.Creator<Item> {
+    companion object CREATOR : Parcelable.Creator<ItemData> {
         //Retrieve item from parcel
-        override fun createFromParcel(parcel: Parcel): Item {
-            return Item(parcel)
+        override fun createFromParcel(parcel: Parcel): ItemData {
+            return ItemData(parcel)
         }
 
-        override fun newArray(size: Int): Array<Item?> {
+        override fun newArray(size: Int): Array<ItemData?> {
             return arrayOfNulls(size)
         }
     }

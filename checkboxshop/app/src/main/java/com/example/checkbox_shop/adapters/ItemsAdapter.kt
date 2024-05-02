@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.checkbox_shop.models.Item
+import com.example.checkbox_shop.models.ItemData
 import com.example.checkbox_shop.R
 
-open class ItemsAdapter(context: Context, protected val items: ArrayList<Item>) : BaseAdapter() {
+open class ItemsAdapter(context: Context, protected val items: ArrayList<ItemData>) : BaseAdapter() {
 
     protected val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -20,7 +20,7 @@ open class ItemsAdapter(context: Context, protected val items: ArrayList<Item>) 
     }
 
     //Get item from item position in dataset
-    override fun getItem(position: Int): Any {
+    override fun getItem(position: Int): ItemData {
         return items[position]
     }
 
@@ -55,7 +55,7 @@ open class ItemsAdapter(context: Context, protected val items: ArrayList<Item>) 
         return view
     }
 
-    fun getItemsList() : ArrayList<Item>
+    fun getItemsList() : ArrayList<ItemData>
     {
         return items
     }
