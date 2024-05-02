@@ -10,13 +10,20 @@
         android:id="@+id/to_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To Cart" />
+        android:text="@string/to_cart" />
+
+    <TextView
+        android:id="@+id/cart_count_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/in_cart"
+        android:textSize="16sp"
+        android:layout_marginStart="16dp"/>
 
     <TextView
         android:id="@+id/cart_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Items in cart: "
         android:textSize="16sp"
-        android:layout_marginStart="16dp"/>
+        android:text="@string/zero"/>
 </LinearLayout>

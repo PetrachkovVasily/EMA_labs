@@ -46,6 +46,7 @@ class CallTaxiActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.phone_number).text = userData.phone
 
         wayInfo = findViewById(R.id.path_info)
+        callBtn = findViewById(R.id.call_taxi_btn)
 
         val toSetPath: Button = findViewById(R.id.set_path_btn)
         toSetPath.setOnClickListener { toCallTaxiActivity() }
@@ -101,8 +102,8 @@ class CallTaxiActivity : AppCompatActivity() {
         }
         else
         {
-            callBtn.visibility = View.VISIBLE
             wayInfo.text = "Откуда: $from\nКуда: $to"
+            callBtn.visibility = View.VISIBLE
 
         }
 

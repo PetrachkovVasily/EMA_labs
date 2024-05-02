@@ -1,26 +1,42 @@
 package com.example.checkbox_shop
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.checkbox_shop.adapters.CheckedItemsAdapter
+import com.example.checkbox_shop.interfaces.OnCheckedChangeListener
+import com.example.checkbox_shop.models.Item
 
-
-private var catalogue: ListView? = null
-private val arr_items: ArrayList<Item> = ArrayList()
 private const val SIZE_OF_ARR = 25
 
-class CatalogueActivity : AppCompatActivity() {
+class CatalogueActivity : AppCompatActivity(), OnCheckedChangeListener, OnClickListener {
+
+    private lateinit var catalogue: ListView
+    private var arrItems: ArrayList<Item> = ArrayList()
+    private lateinit var itemsAdapter : CheckedItemsAdapter
+    private lateinit var checkedCounter : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalogue)
 
-        initView();
-        createCatalogueView();
+        fillData(savedInstanceState)
+
+        initView()
+        createCatalogueView()
+
+        checkedCounter = catalogue.findViewById(R.id.cart_count)
+
+        catalogue.findViewById<Button>(R.id.to_cart).setOnClickListener(this)
+
+        //Call onDataChanged after page init
+        onDataChanged()
     }
 
     private fun initView() {
@@ -28,31 +44,66 @@ class CatalogueActivity : AppCompatActivity() {
     }
 
     private fun createCatalogueView() {
-        fillData()
-        val itemsAdapter = ItemsAdapter(this, arr_items)
+        //Get and set adapter for catalogue listView
+        itemsAdapter = CheckedItemsAdapter(this, arrItems, this)
+        catalogue.adapter = itemsAdapter
 
-        val layoutInflater: LayoutInflater = LayoutInflater.from(this);
-
+        //Inflate footer and header with layoutInflater
+        val layoutInflater: LayoutInflater = LayoutInflater.from(this)
         insertHeader(layoutInflater)
         insertFooter(layoutInflater)
 
-        catalogue?.adapter = itemsAdapter
     }
 
     private fun insertHeader(layoutInflater: LayoutInflater) {
-        val catalogueHeader = layoutInflater.inflate(R.layout.header, null)
-        catalogue?.addHeaderView(catalogueHeader)
+        val catalogueHeader = layoutInflater.inflate(R.layout.header, catalogue, false)
+        catalogue.addHeaderView(catalogueHeader)
     }
     private fun insertFooter(layoutInflater: LayoutInflater) {
-        val catalogueFooter = layoutInflater.inflate(R.layout.footer, null)
-        catalogue?.addFooterView(catalogueFooter)
+        val catalogueFooter = layoutInflater.inflate(R.layout.footer, catalogue, false)
+        catalogue.addFooterView(catalogueFooter)
     }
 
-    private fun fillData() {
+    //Initialize catalogue items
+    @Suppress("DEPRECATION")
+    private fun fillData(saveItems : Bundle?) {
+
+        val savedItems = saveItems?.getParcelableArrayList<Item>("items")
+        if(savedItems != null)
+        {
+            arrItems = savedItems
+            return
+        }
+
+        if(arrItems.size != 0) return
         var i = 0
         while (i < SIZE_OF_ARR) {
             i++
-            arr_items.add(Item(i, " Catalogue item No$i", false))
+            arrItems.add(Item(i, " Catalogue item No$i", false))
         }
+    }
+
+    //Called when some item checked is changed
+    override fun onDataChanged() {
+
+        val checkedCount = itemsAdapter.getCheckedItems().size
+        checkedCounter.text = checkedCount.toString()
+
+    }
+
+    //Move to cart activity
+    override fun onClick(v: View?) {
+
+        val intent = Intent(this, CartActivity::class.java)
+
+        intent.putParcelableArrayListExtra("items", itemsAdapter.getCheckedItems())
+
+        startActivity(intent)
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList("items", itemsAdapter.getItemsList())
     }
 }
